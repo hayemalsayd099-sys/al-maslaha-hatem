@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ميزانية المصلحة - الأرشيف الرقمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .header { background-color: #f57f17; color: white; text-align: center; padding: 15px; font-weight: bold; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { padding: 15px; }
+        .input-group { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #e0e0e0; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        .btn-add { background-color: #f57f17; color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 5px; }
+        .section-title { color: #333; border-bottom: 2px solid #f57f17; padding-bottom: 5px; margin: 20px 0 10px; display: flex; align-items: center; gap: 10px; }
+        .expense-item { background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border-right: 5px solid #f57f17; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .expense-info strong { font-size: 16px; color: #333; }
+        .expense-info div { font-size: 12px; color: #888; margin-top: 4px; }
+        .amount-tag { font-weight: bold; color: #f57f17; margin-left: 10px; }
+        .total-box { background: #333; color: white; padding: 15px; border-radius: 10px; text-align: center; margin: 15px 0; font-size: 18px; }
+        .archive-card { background: #fff; border-radius: 10px; margin-bottom: 15px; overflow: hidden; border: 1px solid #ddd; position: relative; }
+        .archive-header { background: #607d8b; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; line-height: 1.5; }
+        .archive-body { padding: 10px; font-size: 13px; color: #555; max-height: 150px; overflow-y: auto; }
+        .btn-archive { background-color: #2e7d32; color: white; border: none; width: 100%; padding: 12px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-delete-month { background: #d32f2f; color: white; border: none; border-radius: 3px; padding: 4px 8px; cursor: pointer; font-size: 11px; margin-right: 5px; }
+        .btn-clear-archive { background-color: #c62828; color: white; border: none; padding: 8px; border-radius: 5px; font-size: 12px; cursor: pointer; margin-top: 20px; opacity: 0.7; }
+        .back-btn { display: block; text-align: center; margin: 25px 0; text-decoration: none; color: #f57f17; font-weight: bold; border: 1px solid #f57f17; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="header">💰 مصاريف المصلحة والأرشيف 💰</div>
+
+<div class="container">
+    <div class="input-group">
+        <input type="text" id="desc" placeholder="بيان المصروف (كهرباء، عمال..)">
+        <input type="number" id="amount" placeholder="المبلغ (جنيه)">
+        <button class="btn-add" onclick="addExpense()">تسجيل مصروف الآن</button>
+    </div>
+
+    <h3 class="section-title"><i class="fas fa-list-check"></i> مصاريف الشهر الحالي</h3>
+    <div id="expensesList"></div>
+    <div class="total-box">إجمالي الحالي: <span id="totalDisplay">0</span> ج</div>
+    
+    <button class="btn-archive" onclick="archiveMonth()">🔒 إنهاء الشهر وترحيله للأرشيف</button>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ccc;">
+
+    <h3 class="section-title"><i class="fas fa-box-archive"></i> أرشيف الشهور السابقة</h3>
+    <div id="archiveContainer"></div>
+
+    <button class="btn-clear-archive" onclick="clearAllArchive()">مسح الأرشيف بالكامل</button>
+    
+    <a href="menu.html" class="back-btn">الرجوع للمنيو الرئيسية</a>
+</div>
+
+<script>
+    let expenses = JSON.parse(localStorage.getItem('almaslaha_expenses')) || [];
+    let archive = JSON.parse(localStorage.getItem('almaslaha_archive')) || [];
+
+    function addExpense() {
+        const desc = document.getElementById('desc').value;
+        const amount = document.getElementById('amount').value;
+        const now = new Date();
+        const dateStr = now.toLocaleString('ar-EG', { day: 'numeric', month: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+        if (desc && amount) {
+            expenses.push({ id: Date.now(), desc, amount: parseFloat(amount), date: dateStr });
+            save(); render();
+            document.getElementById('desc').value = '';
+            document.getElementById('amount').value = '';
+        }
+    }
+
+    function archiveMonth() {
+        if (expenses.length === 0) return alert('لا توجد مصاريف لترحيلها!');
+        
+        if (confirm('هل تريد إغلاق الشهر الحالي وترحيله للأرشيف؟')) {
+            const now = new Date();
+            const dayName = now.toLocaleString('ar-EG', { weekday: 'long' });
+            
+            // التعديل: جعل التاريخ أرقام فقط (يوم / شهر / سنة)
+            const dateNumeric = now.getDate() + ' / ' + (now.getMonth() + 1) + ' / ' + now.getFullYear();
+            const timePart = now.toLocaleString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            
+            const fullHeader = `${dayName}، ${dateNumeric} | ${timePart}`;
+            
+            const total = expenses.reduce((sum, item) => sum + item.amount, 0);
+            
+            archive.push({ id: Date.now(), title: fullHeader, total: total, details: [...expenses] });
+            expenses = []; save(); render();
+        }
+    }
+
+    function deleteExpense(id) {
+        expenses = expenses.filter(e => e.id !== id);
+        save(); render();
+    }
+
+    function deleteArchiveItem(id) {
+        if (confirm('مسح هذا السجل نهائياً؟')) {
+            archive = archive.filter(item => item.id !== id);
+            save(); render();
+        }
+    }
+
+    function clearAllArchive() {
+        if (confirm('سيتم مسح كل الأرشيف نهائياً؟')) {
+            archive = []; save(); render();
+        }
+    }
+
+    function save() {
+        localStorage.setItem('almaslaha_expenses', JSON.stringify(expenses));
+        localStorage.setItem('almaslaha_archive', JSON.stringify(archive));
+    }
+
+    function render() {
+        const list = document.getElementById('expensesList');
+        let total = 0;
+        list.innerHTML = '';
+        expenses.slice().reverse().forEach(e => {
+            total += e.amount;
+            list.innerHTML += `<div class="expense-item">
+                <div class="expense-info"><strong>${e.desc}</strong> <span class="amount-tag">${e.amount} ج</span><div>📅 ${e.date}</div></div>
+                <button style="color:red; background:none; border:none;" onclick="deleteExpense(${e.id})"><i class="fas fa-trash"></i></button>
+            </div>`;
+        });
+        document.getElementById('totalDisplay').innerText = total;
+
+        const arcContainer = document.getElementById('archiveContainer');
+        arcContainer.innerHTML = '';
+        archive.slice().reverse().forEach(item => {
+            let detailsHtml = item.details.map(d => `• ${d.desc}: ${d.amount} ج`).join('<br>');
+            arcContainer.innerHTML += `
+                <div class="archive-card">
+                    <div class="archive-header">
+                        <div><i class="far fa-calendar-alt"></i> ${item.title}</div>
+                        <div style="display:flex; align-items:center;">
+                            <strong style="margin-left:8px; white-space:nowrap;">${item.total} ج</strong>
+                            <button class="btn-delete-month" onclick="deleteArchiveItem(${item.id})">مسح</button>
+                        </div>
+                    </div>
+                    <div class="archive-body">${detailsHtml}</div>
+                </div>`;
+        });
+    }
+    render();
+</script>
+</body>
+</html>

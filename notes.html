@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مفكرة المربي - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+        .header { background-color: #6d4c41; color: white; text-align: center; padding: 18px; font-weight: bold; font-size: 1.3rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { padding: 15px; }
+        
+        .note-input-area { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        textarea { width: 100%; height: 100px; border: 1px solid #ddd; border-radius: 8px; padding: 10px; box-sizing: border-box; font-family: inherit; font-size: 1rem; margin-bottom: 10px; resize: none; outline: none; }
+        
+        .add-btn { background-color: #6d4c41; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .add-btn:active { transform: scale(0.98); }
+
+        .notes-list { margin-top: 10px; }
+        .note-item { background: #fffde7; padding: 15px; border-radius: 10px; border-right: 5px solid #6d4c41; margin-bottom: 10px; position: relative; animation: slideIn 0.3s; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .note-text { font-size: 0.95rem; color: #333; line-height: 1.5; margin-bottom: 5px; }
+        .note-date { font-size: 0.75rem; color: #888; display: block; }
+        
+        .delete-btn { position: absolute; left: 10px; top: 10px; color: #d32f2f; cursor: pointer; font-size: 1.1rem; }
+
+        .btn-back { display: block; width: 150px; margin: 20px auto; text-align: center; background-color: #6d4c41; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; }
+        .empty-msg { text-align: center; color: #999; margin-top: 30px; font-style: italic; }
+    </style>
+</head>
+<body>
+
+<div class="header">مفكرة المربي الذكية 📖</div>
+
+<div class="container">
+    <div class="note-input-area">
+        <textarea id="noteText" placeholder="اكتب ملاحظاتك هنا... (مثلاً: اليوم تم تحصين الكتاكيت)"></textarea>
+        <button class="add-btn" onclick="addNote()">حفظ الملاحظة</button>
+    </div>
+
+    <div id="notesList" class="notes-list">
+        </div>
+
+    <a href="menu.html" class="btn-back">العودة للقائمه الرئيسيه</a>
+</div>
+
+<script>
+    // تحميل الملاحظات المحفوظة عند فتح الصفحة
+    document.addEventListener('DOMContentLoaded', loadNotes);
+
+    function addNote() {
+        const text = document.getElementById('noteText').value;
+        if (text.trim() === "") {
+            alert("اكتب حاجة الأول يا بطل!");
+            return;
+        }
+
+        const date = new Date().toLocaleString('ar-EG');
+        const note = { text, date, id: Date.now() };
+
+        let notes = JSON.parse(localStorage.getItem('almaslaha_notes') || '[]');
+        notes.unshift(note);
+        localStorage.setItem('almaslaha_notes', JSON.stringify(notes));
+
+        document.getElementById('noteText').value = "";
+        displayNotes();
+    }
+
+    function loadNotes() {
+        displayNotes();
+    }
+
+    function displayNotes() {
+        const notesList = document.getElementById('notesList');
+        const notes = JSON.parse(localStorage.getItem('almaslaha_notes') || '[]');
+        
+        if (notes.length === 0) {
+            notesList.innerHTML = '<p class="empty-msg">لا توجد ملاحظات مسجلة حالياً.</p>';
+            return;
+        }
+
+        notesList.innerHTML = notes.map(note => `
+            <div class="note-item">
+                <i class="fas fa-trash-alt delete-btn" onclick="deleteNote(${note.id})"></i>
+                <div class="note-text">${note.text}</div>
+                <span class="note-date">${note.date}</span>
+            </div>
+        `).join('');
+    }
+
+    function deleteNote(id) {
+        if(confirm("عايز تمسح الملحوظة دي؟")) {
+            let notes = JSON.parse(localStorage.getItem('almaslaha_notes') || '[]');
+            notes = notes.filter(n => n.id !== id);
+            localStorage.setItem('almaslaha_notes', JSON.stringify(notes));
+            displayNotes();
+        }
+    }
+</script>
+
+</body>
+</html>

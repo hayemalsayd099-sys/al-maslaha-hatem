@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل حسابات المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #3f51b5; --success: #4caf50; --danger: #f44336; --warning: #ff9800; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 100px; }
+        
+        .header-blue {
+            background: linear-gradient(135deg, var(--primary), #1a237e);
+            padding: 45px 20px; color: white; text-align: center; border-radius: 0 0 35px 35px;
+            position: relative;
+        }
+
+        /* زرار الرجوع للقائمة الرئيسية */
+        .home-btn { 
+            position: absolute; top: 15px; right: 15px; color: white; text-decoration: none; 
+            font-size: 0.8rem; display: flex; align-items: center; gap: 5px; 
+            background: rgba(255,255,255,0.15); padding: 6px 12px; border-radius: 15px; 
+        }
+
+        .dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; margin-top: -30px; }
+        .stat-card { background: white; padding: 15px; border-radius: 18px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .stat-val { display: block; font-size: 1.1rem; font-weight: bold; }
+
+        .content { padding: 20px; }
+
+        .cycle-card {
+            background: white; border-radius: 20px; padding: 15px; margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-right: 6px solid var(--primary);
+            position: relative;
+        }
+        
+        .delete-btn {
+            position: absolute; left: 15px; top: 15px; color: #ddd;
+            cursor: pointer; transition: 0.3s; font-size: 1.1rem;
+        }
+        .delete-btn:hover { color: var(--danger); }
+
+        .cycle-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 10px; padding-left: 25px; }
+        .cycle-title { font-weight: bold; color: var(--primary); }
+        
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.85rem; color: #555; }
+        .detail-item { display: flex; align-items: center; gap: 5px; }
+        .detail-item i { color: var(--primary); width: 15px; }
+
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 2000; align-items: center; justify-content: center;
+        }
+        .modal-content {
+            background: white; width: 90%; max-height: 85vh; border-radius: 25px; padding: 20px;
+            overflow-y: auto; position: relative;
+        }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 0.85rem; margin-bottom: 5px; color: #666; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        
+        .save-btn {
+            background: var(--success); color: white; width: 100%; padding: 12px;
+            border: none; border-radius: 12px; font-weight: bold; font-size: 1rem; margin-top: 10px;
+        }
+
+        .add-btn {
+            position: fixed; bottom: 30px; left: 30px; background: var(--warning);
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; box-shadow: 0 4px 15px rgba(255,152,0,0.4); border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-blue">
+        <a href="menu.html" class="home-btn">
+            <i class="fas fa-home"></i>
+            <span>الرجوع للمنيو</span>
+        </a>
+        <h2><i class="fas fa-file-invoice-dollar"></i> سجل المصلحة المالي</h2>
+        <p style="font-size: 0.8rem;">المرج الجديدة • الجبل الأصفر</p>
+    </div>
+
+    <div class="dashboard">
+        <div class="stat-card">
+            <i class="fas fa-wallet" style="color: var(--success)"></i>
+            <span class="stat-val" id="totalProfit" style="color: var(--success)">0 ج.م</span>
+            <span style="font-size: 0.7rem; color: #888;">صافي الأرباح</span>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-chart-line" style="color: var(--primary)"></i>
+            <span class="stat-val" id="cycleCount">0</span>
+            <span style="font-size: 0.7rem; color: #888;">عدد الدورات</span>
+        </div>
+    </div>
+
+    <div class="content" id="cyclesList"></div>
+
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <h3 style="text-align: center; color: var(--primary);">إضافة دورة جديدة</h3>
+            <div class="form-group"><label>اسم الدورة</label><input type="text" id="f_name"></div>
+            <div class="form-group"><label>رأس المال</label><input type="number" id="f_capital"></div>
+            <div class="form-group"><label>مصاريف أخرى</label><input type="number" id="f_expenses"></div>
+            <div class="form-group"><label>المبيعات</label><input type="number" id="f_revenue"></div>
+            <div class="form-group"><label>عدد النافق</label><input type="number" id="f_dead"></div>
+            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div><label>البداية</label><input type="date" id="f_start"></div>
+                <div><label>البيع</label><input type="date" id="f_end"></div>
+            </div>
+            <button class="save-btn" onclick="saveNewCycle()">حفظ في المصلحة</button>
+            <button style="background: none; border: none; color: #999; width: 100%; margin-top: 10px;" onclick="closeModal()">إلغاء</button>
+        </div>
+    </div>
+
+    <button class="add-btn" onclick="openModal()"><i class="fas fa-plus"></i></button>
+
+    <script>
+        function openModal() { document.getElementById('addModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('addModal').style.display = 'none'; }
+
+        function saveNewCycle() {
+            const data = {
+                id: Date.now(),
+                name: document.getElementById('f_name').value || "دورة بدون اسم",
+                capital: Number(document.getElementById('f_capital').value) || 0,
+                expenses: Number(document.getElementById('f_expenses').value) || 0,
+                revenue: Number(document.getElementById('f_revenue').value) || 0,
+                dead: document.getElementById('f_dead').value || 0,
+                start: document.getElementById('f_start').value || "---",
+                end: document.getElementById('f_end').value || "---"
+            };
+
+            let cycles = JSON.parse(localStorage.getItem('almaslaha_pro')) || [];
+            cycles.unshift(data);
+            localStorage.setItem('almaslaha_pro', JSON.stringify(cycles));
+            closeModal();
+            render();
+        }
+
+        function deleteCycle(id) {
+            if(confirm("هل أنت متأكد من حذف هذه الدورة من سجلات المصلحة؟")) {
+                let cycles = JSON.parse(localStorage.getItem('almaslaha_pro')) || [];
+                cycles = cycles.filter(c => c.id !== id);
+                localStorage.setItem('almaslaha_pro', JSON.stringify(cycles));
+                render();
+            }
+        }
+
+        function render() {
+            let cycles = JSON.parse(localStorage.getItem('almaslaha_pro')) || [];
+            const list = document.getElementById('cyclesList');
+            let totalP = 0;
+            list.innerHTML = "";
+            
+            cycles.forEach(c => {
+                const cost = c.capital + c.expenses;
+                const profit = c.revenue - cost;
+                totalP += profit;
+
+                list.innerHTML += `
+                    <div class="cycle-card" style="border-right-color: ${profit >= 0 ? 'var(--success)' : 'var(--danger)'}">
+                        <i class="fas fa-trash-alt delete-btn" onclick="deleteCycle(${c.id})"></i>
+                        <div class="cycle-header">
+                            <span class="cycle-title">${c.name}</span>
+                            <span style="color: ${profit >= 0 ? 'green' : 'red'}; font-weight: bold;">
+                                ${profit >= 0 ? 'ربح: ' : 'خسارة: '} ${Math.abs(profit)} ج.م
+                            </span>
+                        </div>
+                        <div class="details-grid">
+                            <div class="detail-item"><i class="fas fa-money-bill"></i> رأس المال: ${c.capital}</div>
+                            <div class="detail-item"><i class="fas fa-plus-circle"></i> مصاريف: ${c.expenses}</div>
+                            <div class="detail-item"><i class="fas fa-skull"></i> النافق: ${c.dead}</div>
+                            <div class="detail-item"><i class="fas fa-calendar-alt"></i> من ${c.start} إلى ${c.end}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('totalProfit').innerText = totalP + " ج.م";
+            document.getElementById('cycleCount').innerText = cycles.length;
+        }
+
+        window.onload = render;
+    </script>
+</body>
+</html>

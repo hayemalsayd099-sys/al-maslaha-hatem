@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ميزان الدورة - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; text-align: center; }
+        .header { background-color: #455a64; color: white; padding: 20px; font-size: 1.3rem; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { padding: 15px; }
+        
+        /* كارت الإدخال */
+        .input-card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; border-top: 5px solid #455a64; }
+        input { width: 85%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; text-align: center; font-size: 1.1rem; outline: none; transition: 0.3s; }
+        input:focus { border-color: #455a64; box-shadow: 0 0 5px rgba(69, 90, 100, 0.2); }
+        
+        button { background-color: #2e7d32; color: white; border: none; padding: 12px 40px; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; width: 90%; }
+        button:active { transform: scale(0.95); }
+
+        /* صندوق النتيجة */
+        .result-box { display: none; margin-top: 20px; padding: 15px; border-radius: 12px; font-weight: bold; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* جدول الأوزان */
+        .target-card { background: white; padding: 15px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .target-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .target-table th, .target-table td { padding: 12px; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        .target-table th { background: #eceff1; color: #455a64; border-radius: 5px; }
+        .temp-high { color: #d32f2f; }
+        .temp-low { color: #1976d2; }
+
+        .btn-back { display: inline-block; margin: 25px 0; padding: 12px 35px; background: #455a64; color: white; text-decoration: none; border-radius: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="header">ميزان الدورة الذكي ⚖️</div>
+
+<div class="container">
+    <div class="input-card">
+        <i class="fas fa-balance-scale" style="font-size: 3rem; color: #455a64; margin-bottom: 15px;"></i>
+        <h3>متابعة الوزن اليومي</h3>
+        <p style="font-size: 0.85rem; color: #666;">دخل بيانات الدورة لمعرفة مستوى التحويل</p>
+        
+        <input type="number" id="age" placeholder="عمر الكتكوت (بالأيام)">
+        <input type="number" id="weight" placeholder="متوسط الوزن الحالي (بالجرام)">
+        
+        <button onclick="checkWeight()">تحليل أداء الدورة</button>
+        
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <div class="target-card">
+        <h4>جدول الأوزان المثالية 📈</h4>
+        <table class="target-table">
+            <tr><th>العمر</th><th>الوزن المستهدف</th></tr>
+            <tr><td>7 أيام</td><td>180 - 200 جرام</td></tr>
+            <tr><td>14 يوم</td><td>450 - 500 جرام</td></tr>
+            <tr><td>21 يوم</td><td>900 - 1000 جرام</td></tr>
+            <tr><td>28 يوم</td><td>1500 - 1600 جرام</td></tr>
+            <tr><td>35 يوم</td><td>2100 - 2300 جرام</td></tr>
+        </table>
+    </div>
+
+    <a href="menu.html" class="btn-back">العودة للقائمه الرئيسيه</a>
+</div>
+
+<script>
+    function checkWeight() {
+        const age = document.getElementById('age').value;
+        const weight = document.getElementById('weight').value;
+        const result = document.getElementById('result');
+        
+        if(age == "" || weight == "") {
+            alert("يا حاتم، من فضلك دخل العمر والوزن عشان أقدر أحلل لك!");
+            return;
+        }
+
+        result.style.display = "block";
+        
+        // حساب تقريبي للوزن المثالي (العمر * 60 كمعدل وسطي)
+        let idealMin = age * 45; 
+        
+        if (weight >= idealMin) {
+            result.innerHTML = "✅ ممتاز! الأوزان ماشية تمام مع الجدول. استمر في رعاية القطيع.";
+            result.style.backgroundColor = "#e8f5e9";
+            result.style.color = "#2e7d32";
+            result.style.border = "1px solid #a5d6a7";
+        } else {
+            result.innerHTML = "⚠️ تنبيه: الوزن أقل من المعدل. تأكد من جودة العلف والتهوية والتدفئة.";
+            result.style.backgroundColor = "#ffebee";
+            result.style.color = "#c62828";
+            result.style.border = "1px solid #ef9a9a";
+        }
+    }
+</script>
+
+</body>
+</html>

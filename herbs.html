@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صيدلية الأعشاب - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f8e9; margin: 0; padding: 10px; text-align: center; }
+        
+        .header { 
+            background: linear-gradient(135deg, #388e3c, #1b5e20); 
+            color: white; padding: 20px; border-radius: 0 0 20px 20px; 
+            font-size: 18px; font-weight: bold; margin: -10px -10px 15px -10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .herb-section { 
+            background: #2e7d32; color: white; padding: 12px; 
+            border-radius: 10px; margin-top: 20px; font-weight: bold; 
+            font-size: 15px; display: flex; align-items: center; justify-content: center;
+        }
+        .herb-section i { margin-left: 10px; }
+
+        .herb-row { 
+            background: white; margin: 8px 0; border-radius: 12px; 
+            overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: right; 
+            border: 1px solid #c8e6c9;
+        }
+
+        .herb-header { 
+            padding: 15px; background: #fff; display: flex; 
+            justify-content: space-between; align-items: center; 
+            cursor: pointer; transition: 0.3s;
+        }
+        
+        .herb-header:active { background: #f1f8e9; }
+        .herb-header b { color: #2e7d32; font-size: 16px; }
+        
+        .toggle-icon { color: #388e3c; font-size: 18px; transition: 0.3s; }
+
+        .details { 
+            padding: 15px; display: none; background: #fafafa; 
+            font-size: 14px; line-height: 1.7; border-top: 1px dashed #388e3c;
+            color: #444; animation: fadeIn 0.3s ease-in;
+        }
+        
+        .benefit-tag { 
+            display: inline-block; background: #e8f5e9; color: #2e7d32; 
+            padding: 4px 12px; border-radius: 50px; font-size: 12px; 
+            font-weight: bold; margin-bottom: 10px; border: 1px solid #c8e6c9;
+        }
+
+        .method-box { 
+            background: #fffde7; padding: 10px; border-radius: 8px; 
+            margin-top: 10px; border-right: 5px solid #fbc02d; 
+            font-weight: 500; color: #5d4037;
+        }
+
+        .back-btn { 
+            display: block; margin: 30px auto; padding: 15px; 
+            background: #388e3c; color: white; text-decoration: none; 
+            border-radius: 12px; width: 85%; font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fas fa-leaf"></i> موسوعة الأعشاب: صيدلية المصلحة
+    </div>
+
+    <div class="herb-section"><i class="fas fa-rocket"></i> منشطات نمو وفتح شهية</div>
+    
+    <div class="herb-row">
+        <div class="herb-header" onclick="toggleHerb('h1', this)">
+            <span>الكركم 🟡 <b>(صيدلية كاملة)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="h1" class="details">
+            <span class="benefit-tag">مضاد حيوي + منشط نمو</span><br>
+            <b>الفوائد:</b> قاتل للسموم الفطرية، مطهر معوي طبيعي، ويساعد في زيادة سحب العلف وتحسين الهضم.
+            <div class="method-box"><b>الجرعة:</b> معلقة كبيرة (5 جرام) على كل كيلو علف من عمر يوم لنهاية الدورة.</div>
+        </div>
+    </div>
+
+    <div class="herb-row">
+        <div class="herb-header" onclick="toggleHerb('h2', this)">
+            <span>الخميرة 🍞 <b>(عملاق الأوزان)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="h2" class="details">
+            <span class="benefit-tag">زيادة وزن سريعة</span><br>
+            <b>الفوائد:</b> تنشط البكتيريا النافعة (بروبيوتيك) مما يجعل الطائر يمتص كل البروتين الموجود في العلف.
+            <div class="method-box"><b>الجرعة:</b> 2 جرام خميرة فورية على لتر مية (بعد عمر 12 يوم)، أو معلقة تخلط جيداً مع العلف.</div>
+        </div>
+    </div>
+
+    <div class="herb-section"><i class="fas fa-wind"></i> علاج البرد والنهجان</div>
+
+    <div class="herb-row">
+        <div class="herb-header" onclick="toggleHerb('h3', this)">
+            <span>النعناع والريحان 🍃 <b>(موسع شعب)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="h3" class="details">
+            <span class="benefit-tag">علاج العطس والخنفرة</span><br>
+            <b>الفوائد:</b> مهدئ للجهاز التنفسي، طارد للبلغم، ويقلل من الإجهاد الحراري في الأيام الحارة.
+            <div class="method-box"><b>الجرعة:</b> يغلى النعناع ويغطى حتى يبرد، ثم يضاف 5 سم على كل لتر مياه شرب.</div>
+        </div>
+    </div>
+
+    <div class="herb-section"><i class="fas fa-shield-virus"></i> مطهرات وقاتل ديدان</div>
+
+    <div class="herb-row">
+        <div class="herb-header" onclick="toggleHerb('h4', this)">
+            <span>الشيح 🪵 <b>(عدو الكوكسيديا)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="h4" class="details">
+            <span class="benefit-tag">وقاية من الإسهال المدمم</span><br>
+            <b>الفوائد:</b> أقوى وقاية طبيعية من الكوكسيديا والديدان المعوية، ويحافظ على صحة الأمعاء.
+            <div class="method-box"><b>الجرعة:</b> يغلى ويغطى، ونضع 5 سم على لتر المية يومين كل أسبوع (وقاية من عمر 10 أيام).</div>
+        </div>
+    </div>
+
+    <div class="herb-row">
+        <div class="herb-header" onclick="toggleHerb('h5', this)">
+            <span>الثوم والليمون 🧄 <b>(المضاد الشامل)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="h5" class="details">
+            <span class="benefit-tag">رافع مناعة جبار</span><br>
+            <b>الفوائد:</b> مضاد حيوي طبيعي واسع المجال، يفتح الشهية ويرفع كفاءة جهاز المناعة ضد الفيروسات.
+            <div class="method-box"><b>الجرعة:</b> فصين ثوم مع ليمونة في الخلاط، ونضع 5 سم من الخليط المصفى على كل لتر مية.</div>
+        </div>
+    </div>
+
+    <a href="menu.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i> رجوع للقائمة الرئيسية
+    </a>
+
+    <script>
+        function toggleHerb(id, header) {
+            var allDetails = document.querySelectorAll('.details');
+            var allIcons = document.querySelectorAll('.toggle-icon');
+            
+            allDetails.forEach(function(detail) {
+                if (detail.id !== id) { detail.style.display = "none"; }
+            });
+
+            allIcons.forEach(function(icon) {
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            });
+
+            var x = document.getElementById(id);
+            var icon = header.querySelector('.toggle-icon');
+            
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            } else {
+                x.style.display = "block";
+                icon.classList.replace('fa-plus-circle', 'fa-minus-circle');
+            }
+        }
+    </script>
+
+</body>
+</html>

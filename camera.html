@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تشخيص المصلحة بالكاميرا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; text-align: center; }
+        .camera-container { max-width: 400px; margin: auto; background: white; border-radius: 25px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        #video { width: 100%; border-radius: 15px; background: #000; margin-bottom: 15px; display: none; }
+        #canvas { display: none; }
+        .btn { display: block; padding: 15px; border-radius: 15px; border: none; font-weight: bold; cursor: pointer; margin: 10px auto; font-size: 16px; width: 100%; transition: 0.3s; }
+        .btn-start { background: #1e88e5; color: white; }
+        .btn-capture { background: #e53935; color: white; display: none; }
+        .status-msg { display: none; margin-top: 15px; color: #0d47a1; font-weight: bold; }
+        .back-link { display: inline-block; margin-top: 20px; color: #888; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="camera-container">
+        <i class="fas fa-camera-retro" style="font-size: 40px; color: #1e88e5; margin-bottom: 10px;"></i>
+        <h2>📸 تشخيص بالكاميرا</h2>
+        <p style="color: #666; font-size: 14px;">وجه الكاميرا نحو الحالة المصابة للتحليل</p>
+        
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas"></canvas>
+
+        <button id="startBtn" class="btn btn-start"><i class="fas fa-power-off"></i> فتح الكاميرا</button>
+        <button id="captureBtn" class="btn btn-capture"><i class="fas fa-camera"></i> التقاط الصورة للتحليل</button>
+        
+        <div id="statusMsg" class="status-msg">
+            <i class="fas fa-spinner fa-spin"></i> جاري معالجة الصورة...
+        </div>
+
+        <a href="menu.html" class="back-link">🔙 العودة للقائمة</a>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const startBtn = document.getElementById('startBtn');
+        const captureBtn = document.getElementById('captureBtn');
+        const statusMsg = document.getElementById('statusMsg');
+
+        // 1. وظيفة فتح الكاميرا
+        startBtn.onclick = async function() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "environment" } 
+                });
+                video.srcObject = stream;
+                video.style.display = 'block';
+                startBtn.style.display = 'none';
+                captureBtn.style.display = 'block';
+            } catch (err) {
+                alert("يا مصلحة، لازم تدي إذن للكاميرا عشان نقدر نشخص الحالة!");
+            }
+        };
+
+        // 2. وظيفة التقاط الصورة والتحويل لصفحة الشات
+        captureBtn.onclick = function() {
+            // تثبيت الصورة على الكانفاس
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            
+            video.style.display = 'none';
+            captureBtn.style.display = 'none';
+            statusMsg.style.display = 'block';
+
+            // حفظ الصورة في ذاكرة المتصفح المؤقتة
+            const imageData = canvas.toDataURL('image/png');
+            sessionStorage.setItem('temp_case_image', imageData);
+
+            // التحويل لصفحة "اسأل المصلحة" (ask.html) بعد ثانية ونصف
+            setTimeout(() => {
+                window.location.href = "ask.html";
+            }, 1500);
+        };
+    </script>
+</body>
+</html>

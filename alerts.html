@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منبه المصلحة الذكي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --red: #d32f2f; --green: #2e7d32; --bg: #f8f9fa; --white: #ffffff; --orange: #ff9800; }
+        
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--bg); 
+            margin: 0; padding: 0; 
+            display: flex; flex-direction: column; align-items: center;
+            overflow-x: hidden;
+        }
+
+        .container { width: 100%; max-width: 400px; padding: 15px; }
+
+        .header { 
+            background-color: var(--red); color: white; padding: 20px; 
+            border-radius: 0 0 25px 25px; text-align: center; width: 100%;
+        }
+
+        .setup-card { 
+            background: #fffcf5; border: 2px dashed var(--orange); 
+            border-radius: 20px; padding: 20px; margin: 20px 0; width: 100%;
+        }
+
+        label { display: block; color: #e65100; font-weight: bold; margin-bottom: 8px; font-size: 0.9rem; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 12px; margin-bottom: 15px; font-size: 1rem; }
+
+        .btn-activate { 
+            background-color: var(--green); color: white; border: none; padding: 15px; 
+            border-radius: 15px; width: 100%; font-weight: bold; font-size: 1.1rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        /* زرار المسح الجديد */
+        .btn-reset { 
+            background: none; color: var(--red); border: 2px solid var(--red); 
+            padding: 10px; border-radius: 12px; width: 100%; font-weight: bold;
+            margin-top: 10px; cursor: pointer; font-size: 0.9rem;
+        }
+
+        .status-card { 
+            background: var(--white); border-radius: 20px; padding: 20px; 
+            border-right: 5px solid #1976d2; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center;
+        }
+
+        .day-count { color: var(--red); font-weight: bold; font-size: 1.2rem; }
+        .btn-back { display: block; width: 100%; padding: 15px; background: #455a64; color: white; text-align: center; border-radius: 15px; text-decoration: none; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2 style="margin:0;"><i class="fas fa-bell"></i> منبه المصلحة الذكي</h2>
+</div>
+
+<div class="container">
+    <div class="setup-card">
+        <label><i class="fas fa-calendar-alt"></i> تاريخ استلام الكتاكيت:</label>
+        <input type="date" id="arrivalDate">
+        
+        <label><i class="fas fa-clock"></i> ساعة الرنة اليومية:</label>
+        <input type="time" id="alarmTime">
+
+        <button class="btn-activate" onclick="activateAlarm()">تفعيل المتابعة الذكية 🚀</button>
+        
+        <button class="btn-reset" onclick="resetData()"><i class="fas fa-trash-alt"></i> مسح البيانات وإعادة الضبط</button>
+    </div>
+
+    <div class="status-card" id="statusCard">
+        <div class="day-count">اليوم رقم ( <span id="dayNum">--</span> )</div>
+        <div style="color: #1976d2; font-weight: bold; font-size: 1.2rem; margin: 10px 0;">متابعة المصلحة</div>
+        <p style="color: #666; font-size: 0.9rem;">راجع الجدول اليومي في صفحات العلاج.</p>
+    </div>
+
+    <a href="index.html" class="btn-back">🔙 رجوع للقائمة الرئيسية</a>
+</div>
+
+<script>
+    function activateAlarm() {
+        const dateInput = document.getElementById('arrivalDate').value;
+        if (!dateInput) {
+            alert("اختار التاريخ الأول يا حاتم!");
+            return;
+        }
+        const arrival = new Date(dateInput);
+        const today = new Date();
+        const diffDays = Math.ceil(Math.abs(today - arrival) / (1000 * 60 * 60 * 24));
+        
+        document.getElementById('dayNum').innerText = diffDays;
+        localStorage.setItem('poultryDate', dateInput); // حفظ التاريخ
+        alert("تم الحفظ وتفعيل المتابعة!");
+    }
+
+    function resetData() {
+        if(confirm("هل تريد مسح ميعاد الدورة والبدء من جديد؟")) {
+            localStorage.removeItem('poultryDate');
+            document.getElementById('arrivalDate').value = "";
+            document.getElementById('alarmTime').value = "";
+            document.getElementById('dayNum').innerText = "--";
+            alert("تم مسح البيانات بنجاح.");
+        }
+    }
+
+    // استرجاع البيانات لو موجودة
+    window.onload = function() {
+        const savedDate = localStorage.getItem('poultryDate');
+        if(savedDate) {
+            document.getElementById('arrivalDate').value = savedDate;
+            activateAlarm();
+        }
+    }
+</script>
+
+</body>
+</html>

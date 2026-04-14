@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التدخل السريع - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #fcfcfc; 
+            margin: 0; 
+            padding: 15px; 
+            text-align: center; 
+        }
+        
+        /* الهيدر بلون أحمر طوارئ احترافي */
+        .header { 
+            background: linear-gradient(45deg, #d32f2f, #b71c1c); 
+            color: white; 
+            padding: 25px 15px; 
+            border-radius: 0 0 25px 25px; 
+            font-size: 22px; 
+            font-weight: bold; 
+            margin: -15px -15px 25px -15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .card { 
+            background: white; 
+            border-right: 5px solid #d32f2f; 
+            border-radius: 12px; 
+            padding: 18px; 
+            margin-bottom: 15px; 
+            text-align: right; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+        }
+
+        .card h3 { 
+            color: #d32f2f; 
+            margin-top: 0; 
+            display: flex; 
+            align-items: center; 
+            font-size: 19px; 
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .card h3 i { margin-left: 12px; font-size: 22px; }
+        
+        .card p { 
+            font-size: 16px; 
+            color: #333; 
+            line-height: 1.6; 
+            margin-top: 10px;
+        }
+
+        /* حاوية الأزرار */
+        .btn-group { 
+            display: flex; 
+            gap: 10px; 
+            margin-top: 25px; 
+        }
+
+        .action-btn { 
+            flex: 1;
+            color: white; 
+            text-decoration: none; 
+            padding: 15px; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        /* زر الرجوع رمادي غامق */
+        .back-btn { 
+            background: #444; 
+        }
+
+        /* زر اسأل المصلحة أزرق */
+        .ask-btn { 
+            background: #1976d2; 
+        }
+
+        .action-btn i { margin-left: 8px; }
+        .action-btn:active { transform: scale(0.95); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fas fa-kit-medical"></i> التدخل السريع
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-skull-crossbones"></i> نافق مفاجئ (موت)؟</h3>
+        <p>
+            1. ارفع درجة الحرارة درجتين فوراً.<br>
+            2. اعزل الحالات المصابة بعيداً عن القطيع.<br>
+            3. صوّر الحالة وارفعها في "اسأل المصلحة".
+        </p>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-wind"></i> نهجان شديد؟</h3>
+        <p>
+            1. افتح الشفاطات وزود التهوية فوراً.<br>
+            2. نزل فيتامين C في مياه الشرب.<br>
+            3. قلل شدة الإضاءة لتهدئة الطيور.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3><i class="fas fa-vial"></i> زرق غير طبيعي؟</h3>
+        <p>
+            لو الزرق لونه (أحمر، أبيض، أو أخضر):<br>
+            <strong>استخدم مطهر معوي فوراً</strong> وقدم مياه نظيفة جداً حتى يتم التشخيص.
+        </p>
+    </div>
+
+    <div class="btn-group">
+        <a href="menu.html" class="action-btn back-btn">
+            <i class="fas fa-arrow-right"></i> رجوع
+        </a>
+        <a href="ask.html" class="action-btn ask-btn">
+            <i class="fas fa-comments"></i> اسأل المصلحة
+        </a>
+    </div>
+
+</body>
+</html>

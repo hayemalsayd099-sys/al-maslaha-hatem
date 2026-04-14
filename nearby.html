@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات قريبة - المصلحة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --dark-green: #1b5e20;
+            --bg-color: #f8f9fa;
+            --white: #ffffff;
+            --accent-blue: #1976d2;
+        }
+
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; text-align: center; }
+
+        .header { 
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green)); 
+            color: white; padding: 40px 15px; 
+            border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        
+        .home-btn { 
+            position: absolute; top: 20px; right: 15px; color: white; text-decoration: none; 
+            font-size: 0.85rem; display: flex; align-items: center; gap: 5px; 
+            background: rgba(255,255,255,0.2); padding: 8px 12px; border-radius: 15px; 
+        }
+
+        .header h1 { margin: 10px 0 0; font-size: 1.8rem; }
+        .header p { margin: 5px 0 0; font-size: 1rem; opacity: 0.9; }
+
+        .container { padding: 20px; display: flex; flex-direction: column; gap: 15px; max-width: 500px; margin: 0 auto; }
+
+        .service-card { 
+            background: var(--white); padding: 18px; border-radius: 20px; 
+            text-decoration: none; color: #333; display: flex; align-items: center; 
+            justify-content: space-between; box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            border: 1px solid #eee; transition: 0.3s;
+        }
+
+        .icon-box { font-size: 2.2rem; margin-left: 15px; background: #f0f4f0; width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; border-radius: 15px; }
+        .details { flex-grow: 1; text-align: right; }
+        .details h3 { margin: 0; font-size: 1.1rem; color: var(--primary-green); }
+        .details p { margin: 5px 0 0; font-size: 0.85rem; color: #666; }
+
+        .btn-go { background-color: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 12px; font-size: 0.9rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="home-btn">
+            <i class="fas fa-home"></i>
+            <span>الرجوع للقائمة</span>
+        </a>
+        <h1>📍 خدمات قريبة</h1>
+        <p>ابحث عن احتياجات مزرعتك في منطقتك</p>
+    </div>
+
+    <div class="container">
+        
+        <a href="https://www.google.com/maps/search/دكتور+بيطري" target="_blank" class="service-card">
+            <span class="icon-box">🏥</span>
+            <div class="details">
+                <h3>أقرب دكتور بيطري</h3>
+                <p>عيادات ومعامل في محيطك</p>
+            </div>
+            <span class="btn-go">بحث</span>
+        </a>
+
+        <a href="https://www.google.com/maps/search/أعلاف+ومستلزمات+دواجن" target="_blank" class="service-card">
+            <span class="icon-box">🏗️</span>
+            <div class="details">
+                <h3>مستلزمات وأعلاف</h3>
+                <p>أجود أنواع الأعلاف والمعدات</p>
+            </div>
+            <span class="btn-go">بحث</span>
+        </a>
+
+        <a href="https://www.google.com/maps/search/شركات+دواجن" target="_blank" class="service-card">
+            <span class="icon-box">🐥</span>
+            <div class="details">
+                <h3>شركات كتاكيت</h3>
+                <p>توصيل لجميع المحافظات</p>
+            </div>
+            <span class="btn-go">بحث</span>
+        </a>
+
+        <a href="https://www.google.com/maps/search/صيدلية+بيطرية" target="_blank" class="service-card">
+            <span class="icon-box">💊</span>
+            <div class="details">
+                <h3>صيدليات بيطرية</h3>
+                <p>أدوية وتحصينات معتمدة</p>
+            </div>
+            <span class="btn-go">بحث</span>
+        </a>
+
+    </div>
+
+    <p style="color: #999; font-size: 0.8rem; margin-top: 20px;">تطبيق المصلحة - دليلك الشامل أينما كنت</p>
+
+</body>
+</html>

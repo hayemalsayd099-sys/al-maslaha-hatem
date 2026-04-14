@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة المصلحة - فيديوهات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; margin: 0; padding-bottom: 80px; }
+        
+        .header { 
+            background: linear-gradient(135deg, #2e7d32, #1b5e20); 
+            color: white; padding: 30px 10px; 
+            border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; 
+            text-align: center; 
+            position: relative;
+        }
+
+        /* زرار الرجوع الموحد */
+        .home-btn { 
+            position: absolute; top: 15px; right: 15px; color: white; text-decoration: none; 
+            font-size: 0.85rem; display: flex; align-items: center; gap: 5px; 
+            background: rgba(255,255,255,0.1); padding: 5px 10px; border-radius: 15px; 
+        }
+
+        .container { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .video-card { 
+            background: white; padding: 15px; border-radius: 15px; 
+            display: flex; flex-direction: column; gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #eee; 
+        }
+        
+        .video-main { display: flex; align-items: center; justify-content: space-between; }
+        .icon-box { font-size: 2rem; margin-left: 15px; }
+        .details { flex-grow: 1; text-align: right; }
+        .details h3 { margin: 0; font-size: 1.1rem; color: #2e7d32; }
+        
+        .btn-watch { 
+            background-color: #ff0000; color: white; padding: 8px 15px; 
+            border-radius: 8px; font-size: 0.8rem; text-decoration: none; 
+            display: inline-block; text-align: center; font-weight: bold;
+        }
+
+        .add-btn { position: fixed; bottom: 20px; left: 20px; background: #2e7d32; color: white; width: 60px; height: 60px; border-radius: 50%; border: none; font-size: 1.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 20px; text-align: center; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-family: 'Cairo'; }
+        .save-btn { background: #2e7d32; color: white; width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="menu.html" class="home-btn">
+            <i class="fas fa-home"></i>
+            <span>القائمة الرئيسية</span>
+        </a>
+        <h1 style="margin-top: 15px;">🎥 مكتبة المصلحة</h1>
+    </div>
+
+    <div class="container" id="videoBox"></div>
+
+    <button class="add-btn" onclick="document.getElementById('m').style.display='flex'">+</button>
+
+    <div id="m" class="modal">
+        <div class="modal-content">
+            <h3>إضافة فيديو جديد</h3>
+            <input type="text" id="t" placeholder="عنوان الفيديو">
+            <input type="text" id="l" placeholder="رابط تيك توك">
+            <button class="save-btn" onclick="save()">نشر الفيديو</button>
+            <button onclick="document.getElementById('m').style.display='none'" style="background:none; border:none; color:red; margin-top:10px;">إلغاء</button>
+        </div>
+    </div>
+
+    <script>
+        function save() {
+            const t = document.getElementById('t').value;
+            const l = document.getElementById('l').value;
+            if(t && l) {
+                let v = JSON.parse(localStorage.getItem('al_vids')) || [];
+                v.unshift({title: t, link: l});
+                localStorage.setItem('al_vids', JSON.stringify(v));
+                location.reload();
+            }
+        }
+
+        function render() {
+            let v = JSON.parse(localStorage.getItem('al_vids')) || [];
+            let html = '';
+            v.forEach(video => {
+                html += `
+                <div class="video-card">
+                    <div class="video-main">
+                        <span class="icon-box"><i class="fab fa-tiktok" style="color:#000"></i></span>
+                        <div class="details">
+                            <h3>${video.title}</h3>
+                            <p>شاهد الشرح على تيك توك</p>
+                        </div>
+                        <a href="${video.link}" target="_blank" class="btn-watch">مشاهدة</a>
+                    </div>
+                </div>`;
+            });
+            document.getElementById('videoBox').innerHTML = html || '<p style="text-align:center; color:#999;">لا توجد فيديوهات، أضف أول فيديو!</p>';
+        }
+        render();
+    </script>
+</body>
+</html>

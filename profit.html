@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابات المصلحة - إدارة الدورة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #2e7d32; --dark: #1b5e20; --bg: #f4f7f6; --red: #d32f2f; --blue: #1976d2; --gold: #c5a059; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg); margin: 0; padding-bottom: 80px; }
+        .header { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: white; padding: 40px 15px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .home-btn { position: absolute; top: 20px; right: 15px; color: white; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 5px; background: rgba(255,255,255,0.15); padding: 8px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.3); }
+        .nav-tabs { display: flex; justify-content: center; gap: 10px; margin: -25px auto 20px; position: relative; z-index: 10; }
+        .tab-btn { background: white; border: none; padding: 12px 20px; border-radius: 25px; font-family: 'Cairo'; font-weight: bold; color: #666; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; }
+        .tab-btn.active { background: var(--gold); color: white; }
+        .container { padding: 0 15px; }
+        .expense-card { background: white; padding: 15px; border-radius: 15px; margin-bottom: 12px; display: flex; align-items: center; border-right: 5px solid var(--gold); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .exp-details { text-align: right; flex-grow: 1; margin-right: 15px; }
+        .exp-details h3 { margin: 0; font-size: 1rem; color: #333; }
+        .exp-details span { font-size: 0.8rem; color: #888; }
+        .exp-price { font-weight: bold; color: var(--red); font-size: 1.1rem; min-width: 80px; text-align: left; }
+        .del-item-btn { color: #ffcccc; cursor: pointer; padding: 10px; font-size: 1.1rem; transition: 0.3s; }
+        .del-item-btn:hover { color: var(--red); }
+        .total-box { background: white; margin: 0 15px 20px; padding: 20px; border-radius: 20px; display: flex; justify-content: space-around; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .add-btn { position: fixed; bottom: 25px; left: 25px; background: var(--gold); color: white; width: 65px; height: 65px; border-radius: 50%; border: none; font-size: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 100; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 85%; padding: 25px; border-radius: 25px; }
+        input, select { width: 100%; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #eee; font-family: 'Cairo'; background: #f9f9f9; box-sizing: border-box; }
+        .save-btn { background: var(--primary); color: white; width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; }
+        .finish-btn { background: var(--blue); color: white; border: none; padding: 15px; border-radius: 15px; width: 100%; margin: 20px 0; font-family: 'Cairo'; font-weight: bold; }
+        .archive-details { display: none; width: 100%; margin-top: 15px; border-top: 1px dashed #ddd; padding-top: 10px; }
+        .archive-details p { margin: 5px 0; display: flex; justify-content: space-between; background: #f9f9f9; padding: 8px; border-radius: 8px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="menu.html" class="home-btn"><i class="fas fa-arrow-right"></i><span>رجوع للمنيو</span></a>
+        <h1 style="margin: 10px 0 5px;">💰 حسابات المصلحة</h1>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('current')">الدورة الحالية</button>
+        <button class="tab-btn" onclick="switchTab('archive')">الأرشيف</button>
+    </div>
+
+    <div id="currentSection">
+        <div class="total-box">
+            <div class="total-item"><h4>إجمالي الصرف</h4><p id="totalPrice">0 ج.م</p></div>
+            <div class="total-item"><h4>البنود</h4><p id="totalCount">0</p></div>
+        </div>
+        <div class="container" id="expenseList"></div>
+        <div class="container" style="text-align: center;">
+            <button class="finish-btn" onclick="finishCycle()">🏁 إنهاء وأرشفة الدورة</button>
+        </div>
+    </div>
+
+    <div id="archiveSection" style="display:none;">
+        <div class="container" id="archiveList"></div>
+    </div>
+
+    <button class="add-btn" onclick="document.getElementById('m').style.display='flex'">+</button>
+
+    <div id="m" class="modal">
+        <div class="modal-content">
+            <h3 style="text-align: center;">إضافة مصروف</h3>
+            <input type="text" id="name" placeholder="صرفت إيه؟">
+            <input type="number" id="price" placeholder="المبلغ">
+            <select id="cat">
+                <option value="علف">علف</option>
+                <option value="كتاكيت">كتاكيت</option>
+                <option value="أدوية">أدوية</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+            <button class="save-btn" onclick="addExp()">حفظ</button>
+            <button onclick="document.getElementById('m').style.display='none'" style="background:none; border:none; color:red; margin-top:15px; width:100%;">إلغاء</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            const btns = document.querySelectorAll('.tab-btn');
+            btns.forEach(b => b.classList.remove('active'));
+            if(tab === 'current') {
+                document.getElementById('currentSection').style.display = 'block';
+                document.getElementById('archiveSection').style.display = 'none';
+                btns[0].classList.add('active');
+                renderCurrent();
+            } else {
+                document.getElementById('currentSection').style.display = 'none';
+                document.getElementById('archiveSection').style.display = 'block';
+                btns[1].classList.add('active');
+                renderArchive();
+            }
+        }
+
+        function addExp() {
+            const n = document.getElementById('name').value;
+            const p = document.getElementById('price').value;
+            const c = document.getElementById('cat').value;
+            if(n && p) {
+                let list = JSON.parse(localStorage.getItem('m_curr')) || [];
+                list.unshift({id: Date.now(), n, p: parseFloat(p), c, d: new Date().toLocaleDateString('ar-EG')});
+                localStorage.setItem('m_curr', JSON.stringify(list));
+                document.getElementById('m').style.display='none';
+                document.getElementById('name').value = '';
+                document.getElementById('price').value = '';
+                renderCurrent();
+            }
+        }
+
+        // خاصية المسح الفردي الجديدة
+        function deleteSingleItem(id) {
+            if(confirm("هل تريد مسح هذا البند؟")) {
+                let list = JSON.parse(localStorage.getItem('m_curr')) || [];
+                list = list.filter(i => i.id !== id);
+                localStorage.setItem('m_curr', JSON.stringify(list));
+                renderCurrent();
+            }
+        }
+
+        function renderCurrent() {
+            let list = JSON.parse(localStorage.getItem('m_curr')) || [];
+            let total = 0, html = '';
+            list.forEach(i => {
+                total += i.p;
+                html += `
+                <div class="expense-card">
+                    <i class="fas fa-trash-alt del-item-btn" onclick="deleteSingleItem(${i.id})"></i>
+                    <div class="exp-price">${i.p} ج.م</div>
+                    <div class="exp-details"><h3>${i.n}</h3><span>${i.c} • ${i.d}</span></div>
+                </div>`;
+            });
+            document.getElementById('expenseList').innerHTML = html || '<p style="text-align:center; color:#999; margin-top:20px;">لسه مفيش مصروفات</p>';
+            document.getElementById('totalPrice').innerText = total + ' ج.م';
+            document.getElementById('totalCount').innerText = list.length;
+        }
+
+        function finishCycle() {
+            let list = JSON.parse(localStorage.getItem('m_curr')) || [];
+            if(list.length === 0) return alert("مفيش بيانات حالية!");
+            if(confirm("عايز تنقل الدورة دي للأرشيف؟")) {
+                let arch = JSON.parse(localStorage.getItem('m_arch')) || [];
+                let total = list.reduce((sum, i) => sum + i.p, 0);
+                arch.unshift({id: Date.now(), date: new Date().toLocaleDateString('ar-EG'), total: total, items: list});
+                localStorage.setItem('m_arch', JSON.stringify(arch));
+                localStorage.removeItem('m_curr');
+                renderCurrent();
+                switchTab('archive');
+            }
+        }
+
+        function deleteCycle(id, event) {
+            event.stopPropagation();
+            if(confirm("حذف الدورة من الأرشيف نهائياً؟")) {
+                let arch = JSON.parse(localStorage.getItem('m_arch')) || [];
+                arch = arch.filter(a => a.id !== id);
+                localStorage.setItem('m_arch', JSON.stringify(arch));
+                renderArchive();
+            }
+        }
+
+        function renderArchive() {
+            let arch = JSON.parse(localStorage.getItem('m_arch')) || [];
+            let html = '';
+            arch.forEach((a, index) => {
+                let itemsHtml = a.items.map(i => `<p><span>${i.n}</span> <span>${i.p} ج.م</span></p>`).join('');
+                html += `
+                <div class="expense-card archive-card" onclick="toggleDetails(${index})" style="border-right-color:var(--blue)">
+                    <div class="card-main" style="display:flex; width:100%; align-items:center; justify-content:space-between;">
+                        <i class="fas fa-trash" style="color:#ffcccc; padding:5px;" onclick="deleteCycle(${a.id}, event)"></i>
+                        <div class="exp-price" style="color:var(--blue)">${a.total} ج.م</div>
+                        <div class="exp-details"><h3>دورة منتهية</h3><span>${a.date}</span></div>
+                        <i class="fas fa-chevron-down" style="color:#ccc"></i>
+                    </div>
+                    <div id="details-${index}" class="archive-details">
+                        <strong>التفاصيل:</strong>${itemsHtml}
+                    </div>
+                </div>`;
+            });
+            document.getElementById('archiveList').innerHTML = html || '<p style="text-align:center;">الأرشيف فاضي</p>';
+        }
+
+        function toggleDetails(index) {
+            const el = document.getElementById(`details-${index}`);
+            el.style.display = el.style.display === 'block' ? 'none' : 'block';
+        }
+
+        window.onload = renderCurrent;
+    </script>
+</body>
+</html>

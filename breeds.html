@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلالات المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #0288d1; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 15px; }
+        
+        .header { text-align: center; color: #01579b; margin-bottom: 15px; background: white; padding: 20px; border-radius: 0 0 25px 25px; margin: -15px -15px 20px -15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        
+        .search-box { position: relative; margin-bottom: 20px; }
+        .search-box input { width: 100%; padding: 12px 40px 12px 15px; border-radius: 12px; border: 1px solid #ddd; box-sizing: border-box; }
+        .search-box i { position: absolute; right: 15px; top: 15px; color: #aaa; }
+
+        .breed-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 20px; border-top: 6px solid var(--primary); transition: 0.3s; }
+        .breed-name { background: #f1f8ff; padding: 15px; font-size: 1.2rem; font-weight: bold; color: var(--primary); display: flex; justify-content: space-between; align-items: center; }
+        .breed-content { padding: 15px; }
+        
+        .feature { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 0.9rem; color: #444; line-height: 1.4; }
+        .feature i { color: #4caf50; margin-top: 3px; }
+
+        .note-box { background: #fff9c4; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: #f57f17; border-right: 5px solid #fbc02d; margin-top: 10px; }
+
+        .badge { color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        
+        .order-btn { display: block; background: var(--primary); color: white; text-align: center; text-decoration: none; padding: 10px; margin: 15px; border-radius: 10px; font-weight: bold; font-size: 0.9rem; }
+        .back-nav { display: block; text-align: center; margin: 20px 0; color: #888; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2><i class="fas fa-kiwi-bird"></i> دليل السلالات الذكي</h2>
+        <p style="font-size: 0.85rem; color: #666;">اختار السلالة اللي تناسب إمكانيات عنبرك</p>
+    </div>
+
+    <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="ابحث عن سلالة محددة...">
+    </div>
+
+    <div class="breed-card">
+        <div class="breed-name">
+            <span>سلالة الكب (Cobb)</span>
+            <span class="badge" style="background: #0288d1;">ملك الصدر</span>
+        </div>
+        <div class="breed-content">
+            <div class="feature"><i class="fas fa-check-circle"></i> تجميع اللحم يتركز في منطقة الصدر (مثالي للتقطيع).</div>
+            <div class="feature"><i class="fas fa-check-circle"></i> معامل تحويل ممتاز جداً في الأعمار المتأخرة.</div>
+            <div class="note-box">
+                <strong>نصيحة المصلحة:</strong> حساس للتهوية والبرد، لازم تظبط حرارة عنبرك كويس جداً في أول 10 أيام.
+            </div>
+            <a href="https://wa.me/201234567890" class="order-btn"><i class="fab fa-whatsapp"></i> اطلب سلالة الكب الآن</a>
+        </div>
+    </div>
+
+    <div class="breed-card" style="border-top-color: #d32f2f;">
+        <div class="breed-name" style="color: #d32f2f; background: #fff5f5;">
+            <span>سلالة الروص (Ross)</span>
+            <span class="badge" style="background: #d32f2f;">حمال الأسية</span>
+        </div>
+        <div class="breed-content">
+            <div class="feature"><i class="fas fa-check-circle"></i> مناعة قوية جداً وتحمل عالي للظروف البيئية المتغيرة.</div>
+            <div class="feature"><i class="fas fa-check-circle"></i> نمو هيكلي قوي (رجلين قوية) بتشيل أوزان كبيرة.</div>
+            <div class="note-box" style="background: #e3f2fd; border-right-color: #2196f3; color: #0d47a1;">
+                <strong>نصيحة المصلحة:</strong> أفضل اختيار لو هتربي في الشتاء أو لو لسه بتبدأ مشروعك جديد.
+            </div>
+            <a href="https://wa.me/201234567890" class="order-btn" style="background:#d32f2f;"><i class="fab fa-whatsapp"></i> اطلب سلالة الروص الآن</a>
+        </div>
+    </div>
+
+    <a href="menu.html" class="back-nav">🔙 العودة للقائمة الرئيسية</a>
+
+</body>
+</html>

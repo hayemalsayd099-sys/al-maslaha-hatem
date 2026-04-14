@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة الأمراض - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; padding: 15px; text-align: center; }
+        
+        .header { 
+            background: linear-gradient(135deg, #1b5e20, #2e7d32); 
+            color: white; padding: 20px; border-radius: 0 0 20px 20px; 
+            font-size: 20px; font-weight: bold; margin: -15px -15px 20px -15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* شريط البحث */
+        .search-box {
+            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #2e7d32;
+            margin-bottom: 20px; box-sizing: border-box; outline: none; font-size: 16px;
+        }
+
+        .category { 
+            background: #d32f2f; color: white; padding: 8px 25px; 
+            border-radius: 50px; display: inline-block; margin: 15px 0 10px; 
+            font-size: 14px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .bacterial { background: #1976d2; } /* لون أزرق للبكتيري */
+
+        .disease-card { 
+            background: white; padding: 18px; border-radius: 15px; 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05); margin-bottom: 15px; 
+            text-align: right; border-right: 6px solid #2e7d32;
+            transition: 0.3s;
+        }
+
+        .disease-card:active { transform: scale(0.98); }
+
+        .disease-card h3 { 
+            color: #d32f2f; margin: 0 0 10px 0; font-size: 18px; 
+            display: flex; align-items: center;
+        }
+        
+        .disease-card h3 i { margin-left: 10px; font-size: 20px; }
+
+        .details { font-size: 15px; line-height: 1.7; color: #333; }
+        .details b { color: #2e7d32; background: #e8f5e9; padding: 0 4px; border-radius: 4px; }
+
+        .back-btn { 
+            display: block; margin: 25px auto; padding: 15px; 
+            background: #444; color: white; text-decoration: none; 
+            border-radius: 12px; width: 90%; font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fas fa-microscope"></i> موسوعة المصلحة للأمراض
+    </div>
+
+    <input type="text" id="diseaseSearch" class="search-box" placeholder="ابحث عن اسم المرض أو العرض (مثلاً: كششان)..." onkeyup="searchDiseases()">
+
+    <div id="diseaseList">
+        <div class="category">🛑 أمراض فيروسية (خطيرة)</div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-virus"></i> نيوكاسل (Newcastle)</h3>
+            <p class="details"><b>الأعراض:</b> التواء رقبة، إسهال أخضر، نافق سريع جداً.<br><b>الحل:</b> تحصين (هيتشنر، لاسوتا) ورفع المناعة ومنع الإجهاد.</p>
+        </div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-virus"></i> الجمبورو (Gumboro)</h3>
+            <p class="details"><b>الأعراض:</b> إسهال أبيض رغوي، كششان، نقر في فتحة المجمع.<br><b>الحل:</b> رفع الحرارة درجتين، منشط كبد وغسيل كلوى فوراً.</p>
+        </div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-virus"></i> الآي بي (IB)</h3>
+            <p class="details"><b>الأعراض:</b> حشرجة صوتية (خناقة)، مد الرقبة للتنفس، إصابة الكلى.<br><b>الحل:</b> موسعات شعب هوائية، مضاد حيوي تنفسي، ومنشط كلى.</p>
+        </div>
+
+        <div class="category bacterial">💊 أمراض بكتيرية ومعوية</div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-bacteria"></i> الكوكسيديا (Coccidiosis)</h3>
+            <p class="details"><b>الأعراض:</b> زرق مدمم (أحمر)، انخفاض سحب العلف، شحوب الوجه.<br><b>الحل:</b> مضادات كوكسيديا (أمبرول/تولترازوريل) مع تجفيف الفرشة.</p>
+        </div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-bacteria"></i> الكولستريـديا (Clostridia)</h3>
+            <p class="details"><b>الأعراض:</b> إسهال بني (شوكولاتة)، خمول، جدران أمعاء منتفخة.<br><b>الحل:</b> مضادات معوية (أموكسيسيلين/لينكوميسين) وتطهير السقايات.</p>
+        </div>
+
+        <div class="disease-card">
+            <h3><i class="fas fa-biohazard"></i> السموم الفطرية</h3>
+            <p class="details"><b>الأعراض:</b> كساح، تضخم كبد، تراجع الوزن، نافق يومي بسيط مستمر.<br><b>الحل:</b> إضافة مضاد سموم بيولوجي (سينرجي/أو غيره) وتغيير العلف المصاب.</p>
+        </div>
+    </div>
+
+    <a href="menu.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i> رجوع للقائمة الرئيسية
+    </a>
+
+    <script>
+        function searchDiseases() {
+            let input = document.getElementById('diseaseSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('disease-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                if (cards[i].innerText.toLowerCase().includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>

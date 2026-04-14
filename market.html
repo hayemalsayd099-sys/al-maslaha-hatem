@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بورصة المصلحة الشاملة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #2e7d32; --accent: #ff9800; --bg: #f0f2f5; --white: #ffffff; --red: #d32f2f; --blue: #1976d2; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 10px; }
+        
+        /* هيدر البورصة مع التحديث المباشر */
+        .header { background: linear-gradient(135deg, var(--primary), #1b5e20); color: white; padding: 25px 20px; border-radius: 0 0 30px 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: -10px -10px 20px -10px; }
+        
+        .live-dot { height: 12px; width: 12px; background-color: #4df15d; border-radius: 50%; display: inline-block; margin-left: 8px; box-shadow: 0 0 10px #4df15d; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .status-container { display: flex; flex-direction: column; align-items: center; gap: 5px; margin-top: 10px; }
+        .status-bar { background: rgba(255,255,255,0.2); padding: 6px 15px; border-radius: 20px; font-size: 0.85rem; display: inline-flex; align-items: center; font-weight: bold; }
+        .internet-notice { font-size: 0.75rem; color: #e8f5e9; opacity: 0.9; }
+
+        .card { background: var(--white); border-radius: 20px; padding: 18px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .card-title { display: flex; align-items: center; gap: 10px; color: var(--primary); font-weight: bold; border-bottom: 2px solid #f0f2f5; padding-bottom: 12px; margin-bottom: 12px; font-size: 1.05rem; }
+
+        /* تنسيق الجداول */
+        .price-table { width: 100%; border-collapse: collapse; }
+        .price-table th { background: #fdfdfd; font-size: 0.7rem; color: #777; padding: 10px 5px; border-bottom: 2px solid #eee; text-align: center; }
+        .price-table td { padding: 14px 4px; text-align: center; border-bottom: 1px solid #f8f8f8; font-size: 0.85rem; font-weight: bold; }
+        .label-cell { text-align: right !important; font-weight: 600 !important; font-size: 0.8rem !important; color: #444; width: 25%; }
+        
+        .val-primary { color: var(--primary); }
+        .val-blue { color: var(--blue); }
+        .val-red { color: var(--red); }
+
+        .share-btn { background: #25d366; color: white; border: none; padding: 16px; border-radius: 15px; width: 100%; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); margin-top: 10px; }
+        .back-nav { display: block; text-align: center; margin: 20px 0; color: #999; text-decoration: none; font-size: 14px; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h2 style="margin:0; font-size: 1.6rem;"><i class="fas fa-chart-line"></i> بورصة المصلحة</h2>
+        <div class="status-container">
+            <div class="status-bar">
+                <span class="live-dot"></span>
+                <span id="dateDisplay">جاري التحديث...</span>
+            </div>
+            <div class="internet-notice">
+                <i class="fas fa-wifi"></i> تأكد من اتصالك بالإنترنت لتحديث الأسعار لحظياً
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-box-open"></i> أسعار الأعلاف (شكارة 50ك)</div>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th style="text-align: right;">النوع</th>
+                    <th>بورصة</th>
+                    <th>تاجر</th>
+                    <th>مستهلك</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-cell">بادي 23%</td>
+                    <td class="val-primary">1125</td>
+                    <td class="val-blue">1150</td>
+                    <td class="val-red">1175</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">نامي 21%</td>
+                    <td class="val-primary">1120</td>
+                    <td class="val-blue">1145</td>
+                    <td class="val-red">1170</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">ناهي 19%</td>
+                    <td class="val-primary">1115</td>
+                    <td class="val-blue">1140</td>
+                    <td class="val-red">1165</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-history"></i> سجل أسعار الـ 4 أيام الماضية</div>
+        <table class="price-table">
+            <thead>
+                <tr>
+                    <th style="text-align: right;">اليوم</th>
+                    <th>مزرعة</th>
+                    <th>تاجر</th>
+                    <th>مستهلك</th>
+                    <th>كتكوت</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="label-cell">الأحد 12 أبريل</td>
+                    <td class="val-primary">75</td>
+                    <td class="val-blue">78</td>
+                    <td class="val-red">83</td>
+                    <td>38</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">السبت 11 أبريل</td>
+                    <td class="val-primary">73</td>
+                    <td class="val-blue">76</td>
+                    <td class="val-red">81</td>
+                    <td>37</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">الجمعة 10 أبريل</td>
+                    <td class="val-primary">72</td>
+                    <td class="val-blue">75</td>
+                    <td class="val-red">80</td>
+                    <td>37</td>
+                </tr>
+                <tr>
+                    <td class="label-cell">الخميس 09 أبريل</td>
+                    <td class="val-primary">70</td>
+                    <td class="val-blue">73</td>
+                    <td class="val-red">78</td>
+                    <td>36</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="padding: 0 10px;">
+        <button class="share-btn" onclick="shareToWhatsApp()">
+            <i class="fab fa-whatsapp" style="font-size: 1.4rem;"></i> مشاركة الأسعار والتحميل
+        </button>
+    </div>
+
+    <a href="index.html" class="back-nav">🔙 العودة للقائمة الرئيسية</a>
+
+    <script>
+        // تحديث التاريخ تلقائياً
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            document.getElementById('dateDisplay').innerHTML = 'تحديث مباشر: ' + now.toLocaleDateString('ar-EG', options);
+        }
+
+        // وظيفة مشاركة واتساب الاحترافية
+        function shareToWhatsApp() {
+            const dateStr = document.getElementById('dateDisplay').innerText;
+            const text = encodeURIComponent(
+                "📊 *بورصة تطبيق المصلحة للدواجن* 🦅\n" +
+                "--------------------------\n" +
+                "🏢 *صفحة البورصة الشاملة*\n" +
+                "📅 " + dateStr + "\n" +
+                "--------------------------\n" +
+                "🐓 *الأبيض (مزرعة):* 75 ج.م\n" +
+                "🛍️ *الأبيض (مستهلك):* 83 ج.م\n" +
+                "🐥 *كتكوت شركات:* 38 ج.م\n" +
+                "💰 *شكارة بادي (50ك):* 1175 ج.م\n" +
+                "--------------------------\n" +
+                "⚠️ *تنبيه:* تأكد من اتصالك بالإنترنت لتحديث الأسعار لحظياً.\n" +
+                "📥 *حمل تطبيق المصلحة الآن:* \n" +
+                "https://al-maslaha-poultry.com"
+            );
+            window.location.href = "https://wa.me/?text=" + text;
+        }
+
+        updateDate();
+    </script>
+</body>
+</html>

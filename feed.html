@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أنواع الأعلاف - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #fffde7; margin: 0; padding: 10px; text-align: center; }
+        
+        .header { 
+            background: linear-gradient(135deg, #f57f17, #e65100); 
+            color: white; padding: 20px; border-radius: 0 0 20px 20px; 
+            font-size: 18px; font-weight: bold; margin: -10px -10px 15px -10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .feed-row { 
+            background: white; margin: 12px 0; border-radius: 15px; 
+            overflow: hidden; box-shadow: 0 3px 8px rgba(0,0,0,0.05); text-align: right; 
+            border: 1px solid #fbc02d;
+        }
+
+        .feed-header { 
+            padding: 18px; background: #fff; display: flex; 
+            justify-content: space-between; align-items: center; 
+            cursor: pointer; transition: 0.3s;
+        }
+        
+        .feed-header:active { background: #fff9c4; }
+        .feed-header b { color: #e65100; font-size: 17px; }
+        
+        .toggle-icon { color: #f57f17; font-size: 18px; transition: 0.3s; }
+
+        .details { 
+            padding: 15px; display: none; background: #fffdf0; 
+            font-size: 15px; line-height: 1.7; border-top: 1px dashed #fbc02d;
+            color: #444; animation: slideIn 0.3s ease-out;
+        }
+        
+        .protein-tag { 
+            display: inline-block; background: #ffe0b2; color: #e65100; 
+            padding: 4px 12px; border-radius: 50px; font-size: 13px; 
+            font-weight: bold; margin-bottom: 10px; border: 1px solid #ffb74d;
+        }
+
+        .tip-box { 
+            background: #e8f5e9; padding: 15px; border-radius: 12px; 
+            margin: 20px 0; border-right: 6px solid #2e7d32; 
+            color: #1b5e20; font-weight: 600; text-align: right;
+            line-height: 1.6;
+        }
+
+        .back-btn { 
+            display: block; margin: 30px auto; padding: 15px; 
+            background: #444; color: white; text-decoration: none; 
+            border-radius: 12px; width: 85%; font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fas fa-seedling"></i> دليل الأعلاف: من الاستقبال حتى البيع
+    </div>
+
+    <div class="feed-row">
+        <div class="feed-header" onclick="toggleFeed('f1', this)">
+            <span>علف بادي 🐥 <b>(مرحلة التأسيس)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="f1" class="details">
+            <span class="protein-tag">بروتين 23%</span><br>
+            <b>الفترة:</b> من عمر يوم حتى عمر 15-18 يوم (أو حتى يستهلك الطائر أول نصف كيلو علف).<br>
+            <b>المميزات:</b> حبة ناعمة تناسب منقار الكتكوت، غني بالبروتين لبناء الهيكل العظمي والعضلات.
+        </div>
+    </div>
+
+    <div class="feed-row">
+        <div class="feed-header" onclick="toggleFeed('f2', this)">
+            <span>علف نامي 🐓 <b>(مرحلة التحويل)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="f2" class="details">
+            <span class="protein-tag">بروتين 21%</span><br>
+            <b>الفترة:</b> من عمر 18 يوم حتى عمر 30 يوم.<br>
+            <b>المميزات:</b> حبة متوسطة، يتميز بقدرة عالية على تحويل اللحم وزيادة وزن الصدر والأوراك بشكل ملحوظ.
+        </div>
+    </div>
+
+    <div class="feed-row">
+        <div class="feed-header" onclick="toggleFeed('f3', this)">
+            <span>علف ناهي 🍗 <b>(مرحلة التشطيب)</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="f3" class="details">
+            <span class="protein-tag">بروتين 19%</span><br>
+            <b>الفترة:</b> من عمر 30 يوم حتى موعد البيع.<br>
+            <b>المميزات:</b> يزيد من نسبة الدهون الطبيعية التي تحسن طعم اللحم وتمنح الطائر وزناً ثقيلاً في اللحظات الأخيرة.
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <i class="fas fa-lightbulb" style="color: #fbc02d;"></i> <b>سر المصلحة:</b><br>
+        قبل الانتقال من البادي للنامي، يجب تقديم "مضاد سموم" في المياه لمدة يومين متتاليين لحماية الكبد من صدمة تغيير العلف.
+    </div>
+
+    <a href="menu.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i> رجوع للقائمة الرئيسية
+    </a>
+
+    <script>
+        function toggleFeed(id, header) {
+            var allDetails = document.querySelectorAll('.details');
+            var allIcons = document.querySelectorAll('.toggle-icon');
+            
+            allDetails.forEach(function(detail) {
+                if (detail.id !== id) { detail.style.display = "none"; }
+            });
+
+            allIcons.forEach(function(icon) {
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            });
+
+            var x = document.getElementById(id);
+            var icon = header.querySelector('.toggle-icon');
+            
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            } else {
+                x.style.display = "block";
+                icon.classList.replace('fa-plus-circle', 'fa-minus-circle');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>برامج المصلحة القادمة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #1976d2;
+            --dark-blue: #0d47a1;
+            --bg-color: #f0f4f8;
+            --white: #ffffff;
+        }
+
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: var(--bg-color); 
+            margin: 0; 
+            padding: 0; 
+            text-align: center; 
+        }
+
+        .header { 
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); 
+            color: white; 
+            padding: 40px 15px; 
+            border-bottom-left-radius: 30px; 
+            border-bottom-right-radius: 30px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        .home-btn { 
+            position: absolute; top: 20px; right: 15px; color: white; text-decoration: none; 
+            font-size: 0.85rem; display: flex; align-items: center; gap: 5px; 
+            background: rgba(255,255,255,0.2); padding: 5px 12px; border-radius: 15px; 
+        }
+
+        .header h1 { margin: 15px 0 5px; font-size: 1.6rem; }
+        .header p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+        .container { padding: 20px; max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+
+        .plan-card { 
+            background: var(--white); 
+            padding: 20px; 
+            border-radius: 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            border-right: 6px solid var(--primary-blue);
+            text-align: right;
+        }
+
+        .plan-icon { font-size: 2rem; color: var(--primary-blue); }
+        .plan-info h3 { margin: 0; font-size: 1.1rem; color: #333; }
+        .plan-info p { margin: 5px 0 0; font-size: 0.85rem; color: #666; line-height: 1.5; }
+
+        .status-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        .footer-text { color: #999; font-size: 0.8rem; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="menu.html" class="home-btn">
+            <i class="fas fa-home"></i>
+            <span>الرجوع للمنيو</span>
+        </a>
+        <h1>🛠️ برامج المصلحة القادمة</h1>
+        <p>نعمل على تطوير أدوات جديدة لخدمتكم</p>
+    </div>
+
+    <div class="container">
+
+        <div class="plan-card">
+            <div class="plan-icon"><i class="fas fa-calculator"></i></div>
+            <div class="plan-info">
+                <h3>حاسبة استهلاك العلف الذكية</h3>
+                <p>توقع كمية العلف المطلوبة لكل يوم في الدورة بناءً على عمر الكتاكيت.</p>
+                <span class="status-badge">قريباً جداً</span>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-icon"><i class="fas fa-chart-pie"></i></div>
+            <div class="plan-info">
+                <h3>تحليل الأداء البياني</h3>
+                <p>رسوم بيانية توضح لك سير الدورة ومقارنتها بالدورات السابقة.</p>
+                <span class="status-badge">تحت التطوير</span>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-icon"><i class="fas fa-bell"></i></div>
+            <div class="plan-info">
+                <h3>منبه التحصينات</h3>
+                <p>تنبيهات ذكية بمواعيد الأدوية والتحصينات لضمان سلامة القطيع.</p>
+                <span class="status-badge">مخطط له</span>
+            </div>
+        </div>
+
+        <div class="plan-card">
+            <div class="plan-icon"><i class="fas fa-cloud-sun"></i></div>
+            <div class="plan-info">
+                <h3>نظام الطقس المتطور</h3>
+                <p>ربط حالة الطقس بنصائح مباشرة للتهوية والتدفئة داخل العنبر.</p>
+                <span class="status-badge">تحسينات قائمة</span>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="footer-text">تطبيق المصلحة - رؤية جديدة لمستقبل الدواجن</p>
+
+</body>
+</html>

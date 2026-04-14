@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة دورة المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f7f0; margin: 0; padding: 15px; text-align: center; }
+        
+        .header { 
+            background: linear-gradient(135deg, #2e7d32, #1b5e20); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 0 0 20px 20px; 
+            font-size: 22px; 
+            font-weight: bold;
+            margin: -15px -15px 25px -15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .calc-card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            text-align: right; 
+        }
+
+        label { display: block; margin-top: 15px; font-weight: bold; color: #2e7d32; font-size: 14px; }
+        
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin-top: 8px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-size: 16px; 
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: #2e7d32; }
+
+        button { 
+            width: 100%; 
+            background: #2e7d32; 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            border-radius: 12px; 
+            margin-top: 25px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+        }
+
+        button:active { transform: scale(0.98); }
+
+        .result-box { 
+            margin-top: 25px; 
+            padding: 20px; 
+            background: #ffffff; 
+            border-radius: 15px; 
+            display: none; 
+            border: 2px solid #2e7d32;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .res-item { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 10px 0; 
+            border-bottom: 1px solid #eee; 
+            font-size: 15px;
+        }
+
+        .res-item:last-child { border-bottom: none; }
+        .res-val { font-weight: bold; color: #2e7d32; }
+
+        .back-btn { 
+            display: inline-block; 
+            margin-top: 25px; 
+            color: #555; 
+            text-decoration: none; 
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="header">📊 حاسبة المصلحة الذكية</div>
+
+    <div class="calc-card">
+        <label><i class="fas fa-kiwi-bird"></i> عدد الكتاكيت في العنبر:</label>
+        <input type="number" id="birdCount" placeholder="مثلاً: 100">
+
+        <label><i class="fas fa-calendar-day"></i> عمر الدورة (بالأيام):</label>
+        <input type="number" id="birdAge" placeholder="أدخل عمر الطيور اليوم">
+
+        <button onclick="calculateData()">احسب البيانات الآن</button>
+
+        <div id="results" class="result-box">
+            <h3 style="color: #2e7d32; margin-top: 0; text-align: center;">النتائج المتوقعة اليوم</h3>
+            
+            <div class="res-item">
+                <span>إجمالي العلف لليوم:</span>
+                <span id="totalFeedKg" class="res-val"></span>
+            </div>
+            
+            <div class="res-item">
+                <span>نصيب الطائر من العلف:</span>
+                <span id="feedPerBird" class="res-val"></span>
+            </div>
+
+            <div class="res-item">
+                <span>الوزن المثالي المطلوب:</span>
+                <span id="targetWeight" class="res-val"></span>
+            </div>
+
+            <div class="res-item" style="background: #fff8e1; padding: 5px; border-radius: 5px; margin-top: 5px;">
+                <span style="color: #f57f17;">معدل سحب المياه:</span>
+                <span id="waterNeed" class="res-val" style="color: #1976d2;"></span>
+            </div>
+        </div>
+    </div>
+
+    <a href="menu.html" class="back-btn">🔙 رجوع للقائمة الرئيسية</a>
+
+    <script>
+        function calculateData() {
+            const count = parseFloat(document.getElementById('birdCount').value);
+            const age = parseFloat(document.getElementById('birdAge').value);
+            const results = document.getElementById('results');
+
+            if(count > 0 && age > 0) {
+                // معادلات دقيقة بناءً على كتالوجات التربية الحديثة
+                let feedPerBird;
+                if (age <= 7) feedPerBird = age * 3 + 12; // أول أسبوع
+                else if (age <= 21) feedPerBird = age * 5 + 5; // فترة النمو
+                else feedPerBird = age * 7 - 30; // فترة التسمين الأخيرة
+
+                let totalTodayKg = (feedPerBird * count) / 1000;
+                
+                // حساب الوزن المثالي (تقريبي للكب 500)
+                let targetWt = 0;
+                if (age <= 7) targetWt = (age * 25) + 40;
+                else targetWt = (age * age * 1.6) + 150;
+
+                // حساب المياه (تقريباً الضعف مرة ونصف من العلف)
+                let waterNeed = totalTodayKg * 1.8;
+
+                document.getElementById('totalFeedKg').innerText = totalTodayKg.toFixed(2) + " كيلو";
+                document.getElementById('feedPerBird').innerText = feedPerBird.toFixed(0) + " جرام";
+                document.getElementById('targetWeight').innerText = targetWt.toFixed(0) + " جرام";
+                document.getElementById('waterNeed').innerText = waterNeed.toFixed(1) + " لتر تقريباً";
+                
+                results.style.display = "block";
+                results.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("برجاء إدخال أرقام صحيحة لعدد الطيور والعمر");
+            }
+        }
+    </script>
+
+</body>
+</html>

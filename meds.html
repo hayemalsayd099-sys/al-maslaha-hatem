@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل العلاج الشامل - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f4; margin: 0; padding: 10px; text-align: center; }
+        
+        .header { 
+            background: linear-gradient(135deg, #1b5e20, #2e7d32); 
+            color: white; padding: 20px; border-radius: 0 0 20px 20px; 
+            font-size: 18px; font-weight: bold; margin: -10px -10px 15px -10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .week-section { 
+            background: #2e7d32; color: white; padding: 12px; 
+            border-radius: 10px; margin-top: 20px; font-weight: bold; 
+            font-size: 15px; display: flex; align-items: center; justify-content: center;
+        }
+        .week-section i { margin-left: 10px; }
+
+        .day-row { 
+            background: white; margin: 8px 0; border-radius: 12px; 
+            overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); text-align: right; 
+            border: 1px solid #e0e0e0;
+        }
+
+        .day-header { 
+            padding: 15px; background: #fff; display: flex; 
+            justify-content: space-between; align-items: center; 
+            cursor: pointer; transition: 0.3s;
+        }
+        
+        .day-header:active { background: #f0f4f0; }
+
+        .day-header b { color: #2e7d32; font-size: 16px; }
+        
+        .toggle-icon { color: #2e7d32; font-size: 18px; transition: 0.3s; }
+
+        .details { 
+            padding: 15px; display: none; background: #fafafa; 
+            font-size: 14px; line-height: 1.7; border-top: 1px dashed #2e7d32;
+            color: #444; animation: slideDown 0.3s ease-out;
+        }
+
+        .method-box { 
+            background: #fff3e0; padding: 10px; border-radius: 8px; 
+            margin-top: 10px; border-right: 5px solid #ff9800; 
+            font-weight: 500; color: #856404;
+        }
+
+        .back-btn { 
+            display: block; margin: 30px auto; padding: 15px; 
+            background: #444; color: white; text-decoration: none; 
+            border-radius: 12px; width: 85%; font-weight: bold; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <i class="fas fa-pills"></i> كتالوج المصلحة الكامل (1 - 45 يوم)
+    </div>
+
+    <div class="week-section"><i class="fas fa-star"></i> الأسبوع الأول: الاستقبال والتحصين</div>
+    
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d1', this)">
+            <span>أيام 1-3: <b>محلول الاستقبال</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d1" class="details">
+            <b>العلاج:</b> محلول جفاف + مضاد حيوي معوي وتنفسي.
+            <div class="method-box">الطريقة: كيس محلول على لتر مية أول 6 ساعات، وبعدها جرام مضاد حيوي لكل لتر مية طوال اليوم.</div>
+        </div>
+    </div>
+
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d4', this)">
+            <span>أيام 4-6: <b>الفيتامينات والأملاح</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d4" class="details">
+            <b>العلاج:</b> أ د 3 هـ + أملاح معدنية.
+            <div class="method-box">الطريقة: سم فيتامينات على لتر مية بالنهار (12 ساعة)، وسنتيمتر أملاح على لتر مية بالليل (12 ساعة).</div>
+        </div>
+    </div>
+
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d7', this)">
+            <span>يوم 7: <b>تحصينة هيتشنر + IB</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d7" class="details">
+            <b>التحصين:</b> رش أو تقطير في العين (الأفضل).
+            <div class="method-box">الطريقة: لو هتحصن في المية، عطش الفراخ ساعتين ودوب الأمبول في مية ساقعة جداً بدون كلور، ويفضل إضافة لبن بودرة.</div>
+        </div>
+    </div>
+
+    <div class="week-section"><i class="fas fa-shield-alt"></i> الأسبوع الثاني: بناء المناعة</div>
+    
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d8', this)">
+            <span>أيام 8-10: <b>مضاد السموم</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d8" class="details">
+            <b>العلاج:</b> مضاد سموم فطرية + منشط كبد.
+            <div class="method-box">الطريقة: سم مضاد سموم على لتر المية. الخطوة دي بتحمي الفراخ من مشاكل تغيير العلف وتراكم السموم.</div>
+        </div>
+    </div>
+
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d12', this)">
+            <span>يوم 12: <b>تحصينة الجمبورو</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d12" class="details">
+            <b>التحصين:</b> لقاح الجمبورو (شرب).
+            <div class="method-box">الطريقة: دوب اللقاح مع معلقة لبن بودرة في مية مثلجة، وتأكد أن المية تكفي الفراخ لمدة ساعة ونصف فقط.</div>
+        </div>
+    </div>
+
+    <div class="week-section"><i class="fas fa-virus-slash"></i> الأسبوع الثالث: الوقاية المعوية</div>
+    
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d15', this)">
+            <span>أيام 15-17: <b>الكوكسيديا</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d15" class="details">
+            <b>العلاج:</b> مضاد كوكسيديا وكولستريديا.
+            <div class="method-box">الطريقة: جرام لكل لتر مية. ضروري جداً لمواجهة الإسهالات المدممة التي تظهر في هذا العمر.</div>
+        </div>
+    </div>
+
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d18', this)">
+            <span>يوم 18: <b>تحصينة لاسوتا</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d18" class="details">
+            <b>التحصين:</b> لقاح لاسوتا للنيوكاسل.
+            <div class="method-box">الطريقة: مياه الشرب بعد تعطيش ساعتين. يفضل التحصين في الصباح الباكر حيث الجو بارد.</div>
+        </div>
+    </div>
+
+    <div class="week-section"><i class="fas fa-weight-hanging"></i> من يوم 25 حتى البيع</div>
+    
+    <div class="day-row">
+        <div class="day-header" onclick="toggleDetails('d25', this)">
+            <span>أيام 25-35: <b>منشطات النمو</b></span>
+            <i class="fas fa-plus-circle toggle-icon"></i>
+        </div>
+        <div id="d25" class="details">
+            <b>العلاج:</b> هـ-سلينيوم + غسيل كلوى.
+            <div class="method-box">الطريقة: سم هـ-سلينيوم لرفع الوزن، مع يومين غسيل كلوى لتنظيف جسم الطائر قبل البيع.</div>
+        </div>
+    </div>
+
+    <a href="menu.html" class="back-btn">
+        <i class="fas fa-arrow-right"></i> رجوع للقائمة الرئيسية
+    </a>
+
+    <script>
+        function toggleDetails(id, header) {
+            // إغلاق أي تفاصيل مفتوحة أخرى
+            var allDetails = document.querySelectorAll('.details');
+            var allIcons = document.querySelectorAll('.toggle-icon');
+            
+            allDetails.forEach(function(detail) {
+                if (detail.id !== id) {
+                    detail.style.display = "none";
+                }
+            });
+
+            allIcons.forEach(function(icon) {
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            });
+
+            // فتح أو إغلاق العنصر الحالي
+            var x = document.getElementById(id);
+            var icon = header.querySelector('.toggle-icon');
+            
+            if (x.style.display === "block") {
+                x.style.display = "none";
+                icon.classList.replace('fa-minus-circle', 'fa-plus-circle');
+            } else {
+                x.style.display = "block";
+                icon.classList.replace('fa-plus-circle', 'fa-minus-circle');
+            }
+        }
+    </script>
+</body>
+</html>

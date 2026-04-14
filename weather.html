@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>طقس المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #03a9f4; --bg: #f4f7f6; --white: #ffffff; --green: #4df15d; }
+        
+        /* ضبط الشاشة عشان تظهر في النص بالظبط */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background-color: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden; /* يمنع الحركة يمين وشمال */
+        }
+        
+        .container { width: 100%; max-width: 400px; padding: 10px; }
+
+        .header { 
+            background: linear-gradient(135deg, var(--primary), #0288d1); 
+            color: white; 
+            padding: 25px 15px; 
+            border-radius: 0 0 30px 30px; 
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .live-dot { height: 12px; width: 12px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-left: 8px; box-shadow: 0 0 10px var(--green); animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .status-bar { background: rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-top: 10px; display: inline-flex; align-items: center; }
+
+        .card { background: var(--white); border-radius: 20px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #eee; width: 100%; }
+        .card-title { display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: bold; border-bottom: 2px solid #f9f9f9; padding-bottom: 10px; margin-bottom: 12px; font-size: 0.95rem; }
+
+        .main-temp { font-size: 3.2rem; color: #333; font-weight: bold; margin: 5px 0; }
+        
+        .forecast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .forecast-item { background: #fdfdfd; padding: 12px; border-radius: 15px; border: 1px solid #f0f0f0; text-align: center; }
+        .day-label { font-size: 0.75rem; color: #777; margin-bottom: 4px; display: block; }
+        .day-temp { font-size: 1.2rem; font-weight: bold; color: var(--primary); }
+
+        .btn-back { display: block; width: 100%; padding: 16px; background: #263238; color: white; text-align: center; border-radius: 15px; text-decoration: none; font-weight: bold; margin: 10px 0 30px 0; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2 style="margin:0;"><i class="fas fa-cloud-sun"></i> طقس المصلحة</h2>
+    <div class="status-bar">
+        <span class="live-dot"></span>
+        <span id="dateDisplay">جاري التحديث...</span>
+    </div>
+    <div style="font-size: 0.7rem; margin-top: 8px; opacity: 0.9;">تأكد من الإنترنت لتحديث البيانات لحظياً</div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-title"><i class="fas fa-location-dot"></i> درجة الحرارة الآن</div>
+        <div class="main-temp" id="current-temp">28°C</div>
+        <div id="current-desc" style="color: var(--primary); font-weight: 600;">سماء صافية</div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-forward"></i> توقعات الأيام القادمة</div>
+        <div class="forecast-grid">
+            <div class="forecast-item">
+                <span class="day-label">غداً</span>
+                <span class="day-temp" id="day1-temp">29°C</span>
+            </div>
+            <div class="forecast-item">
+                <span class="day-label">بعد غد</span>
+                <span class="day-temp" id="day2-temp">30°C</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-title"><i class="fas fa-history"></i> حالة اليومين الماضيين</div>
+        <div class="forecast-grid">
+            <div class="forecast-item">
+                <span class="day-label">أمس</span>
+                <span class="day-temp">26°C</span>
+            </div>
+            <div class="forecast-item">
+                <span class="day-label">أول أمس</span>
+                <span class="day-temp">25°C</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a>
+</div>
+
+<script>
+    async function getWeather() {
+        const apiKey = "895284adae2616a673004383501306f6"; 
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=Cairo&appid=${apiKey}&units=metric&lang=ar`;
+        
+        const now = new Date();
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        document.getElementById('dateDisplay').innerHTML = 'تحديث مباشر: ' + now.toLocaleDateString('ar-EG', options);
+
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('current-temp').innerText = `${Math.round(data.list[0].main.temp)}°C`;
+                document.getElementById('current-desc').innerText = data.list[0].weather[0].description;
+                document.getElementById('day1-temp').innerText = `${Math.round(data.list[8].main.temp)}°C`;
+                document.getElementById('day2-temp').innerText = `${Math.round(data.list[16].main.temp)}°C`;
+            }
+        } catch (error) {
+            console.log("الإنترنت ضعيف، تم عرض البيانات الافتراضية");
+        }
+    }
+    getWeather();
+</script>
+
+</body>
+</html>

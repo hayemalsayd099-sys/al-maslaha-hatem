@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اسأل المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; display: flex; flex-direction: column; height: 100vh; }
+        
+        /* الهيدر */
+        .header { background: #1e88e5; color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 18px; shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        /* منطقة الدردشة */
+        #chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        
+        .message { max-width: 80%; padding: 12px 16px; border-radius: 20px; font-size: 15px; line-height: 1.5; position: relative; }
+        
+        /* رسالة المستخدم */
+        .user { background: #1e88e5; color: white; align-self: flex-start; border-bottom-right-radius: 2px; }
+        
+        /* رسالة البوت */
+        .bot { background: white; color: #333; align-self: flex-end; border-bottom-left-radius: 2px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #e0e0e0; }
+
+        /* منطقة الإدخال */
+        .input-area { background: white; padding: 15px; display: flex; gap: 10px; border-top: 1px solid #ddd; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-family: inherit; }
+        .send-btn { background: #1e88e5; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .send-btn:active { transform: scale(0.9); }
+
+        .back-link { font-size: 12px; color: white; text-decoration: none; position: absolute; right: 15px; top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="menu.html" class="back-link"><i class="fas fa-chevron-right"></i></a>
+        اسأل خبير المصلحة
+    </div>
+
+    <div id="chatBox">
+        <div class="message bot">أهلاً بك في مصلحة التشخيص الفوري.. اكتب سؤالك هنا وسأقوم بمساعدتك فوراً وتحويلك للخبير.</div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="اكتب سؤالك هنا (برد، إسهال، علف)...">
+        <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const chatBox = document.getElementById('chatBox');
+            const userText = input.value.trim();
+            
+            if (userText === "") return;
+
+            // 1. عرض رسالة المستخدم
+            addMessage(userText, 'user');
+
+            // 2. تحليل السؤال والرد الآلي (الذكاء اليدوي)
+            setTimeout(() => {
+                let botResponse = "";
+
+                if (userText.includes("برد") || userText.includes("عطس") || userText.includes("خنفره")) {
+                    botResponse = "⚠️ احتمالية وجود برد. ارفع الحرارة 1-2 درجة فوراً، واستخدم ورق جوافة مغلي أو موسع شعب، ولو الحالة شديدة تواصل مع الدعم هنا.";
+                } 
+                else if (userText.includes("اسهال") || userText.includes("إسهال") || userText.includes("شيح")) {
+                    botResponse = "💩 لو الإسهال بني: استخدم شاي بليمون مع شيح مغلي. لو أحمر: قد تكون كوكسيديا وتحتاج علاج فوري. صور الحالة وابعتها هنا.";
+                }
+                else if (userText.includes("علف") || userText.includes("اكل") || userText.includes("جوع")) {
+                    botResponse = "🌾 تأكد من جودة العلف ونظافة المعالف. هل بتستخدم بادي 23% ولا نامي 21%؟";
+                }
+                else {
+                    botResponse = "فهمت سؤالك.. جاري تجهيز الرد الفني المناسب لك وتحويلك لمستشار المصلحة عبر واتساب.";
+                }
+
+                addMessage(botResponse, 'bot');
+
+                // 3. التحويل للواتساب بعد الرد بـ 3 ثواني
+                setTimeout(() => {
+                    window.location.href = "https://wa.me/201151815606?text=" + encodeURIComponent("سؤال من تطبيق المصلحة: " + userText);
+                }, 3500);
+
+            }, 800);
+
+            input.value = "";
+        }
+
+        function addMessage(text, type) {
+            const chatBox = document.getElementById('chatBox');
+            const div = document.createElement('div');
+            div.className = 'message ' + type;
+            div.innerText = text;
+            chatBox.appendChild(div);
+            
+            // سكرول تلقائي لآخر رسالة
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // إرسال الرسالة عند الضغط على Enter
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

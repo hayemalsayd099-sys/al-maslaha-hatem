@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المصلحة الذكية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; user-select: none; }
+        .header { background-color: #2e7d32; color: white; text-align: center; padding: 18px; font-weight: bold; font-size: 1.3rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .main-container { padding: 12px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .card { background: white; border-radius: 12px; padding: 20px 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid #e0e0e0; transition: 0.2s; text-decoration: none; color: inherit; cursor: pointer; }
+        .card:active { transform: scale(0.96); background-color: #f8f9fa; }
+        .card i { font-size: 28px; margin-bottom: 10px; }
+        .card span { font-size: 13px; font-weight: 700; color: #333; }
+        .full-width { grid-column: span 2; }
+        
+        /* الأقسام المميزة */
+        .emergency { border: 2px solid #d32f2f; color: #d32f2f; }
+        .expenses-card { background-color: #fffde7; border: 1px dashed #ffd54f; color: #f57f17; }
+        .apps-card { background-color: #e3f2fd; border: 1px solid #2196f3; color: #1976d2; }
+        .share-card { background-color: #f3e5f5; border: 1px solid #8e24aa; color: #8e24aa; }
+    </style>
+</head>
+<body>
+
+<div class="header">قائمة المصلحة الذكية</div>
+
+<div class="main-container">
+    
+    <a href="emergency.html" class="card full-width emergency">
+        <i class="fas fa-truck-medical"></i>
+        <span>🚨 التدخل السريع 🚨</span>
+    </a>
+
+    <a href="temp.html" class="card"><i class="fas fa-thermometer-half" style="color: #e53935;"></i><span>الحرارة والرطوبة</span></a>
+    <a href="calc.html" class="card"><i class="fas fa-calculator" style="color: #1e88e5;"></i><span>حاسبة الدورة</span></a>
+    <a href="meds.html" class="card"><i class="fas fa-pills" style="color: #fbc02d;"></i><span>جدول العلاج</span></a>
+    <a href="diseases.html" class="card"><i class="fas fa-stethoscope" style="color: #1e88e5;"></i><span>الأمراض</span></a>
+    <a href="feed.html" class="card"><i class="fas fa-seedling" style="color: #43a047;"></i><span>أنواع الأعلاف</span></a>
+    <a href="herbs.html" class="card"><i class="fas fa-leaf" style="color: #43a047;"></i><span>بدائل الأعشاب</span></a>
+    <a href="alerts.html" class="card"><i class="fas fa-bell" style="color: #ffb300;"></i><span>تنبيهات هامة</span></a>
+    <a href="hatch.html" class="card"><i class="fas fa-egg" style="color: #fb8c00;"></i><span>طريقة التحضين</span></a>
+    <a href="notes.html" class="card"><i class="fas fa-book-open" style="color: #6d4c41;"></i><span>مفكرة المربي</span></a>
+    <a href="weather.html" class="card"><i class="fas fa-cloud-sun-rain" style="color: #039be5;"></i><span>حالة الطقس</span></a>
+    <a href="history.html" class="card"><i class="fas fa-database" style="color: #f9a825;"></i><span>سجل الدورات</span></a>
+    <a href="camera.html" class="card"><i class="fas fa-camera" style="color: #1e88e5;"></i><span>تشخيص بالكاميرا</span></a>
+    
+    <a href="tools.html" class="card">
+        <i class="fas fa-tools" style="color: #8e24aa;"></i>
+        <span>المعدات</span>
+    </a>
+
+    <a href="house.html" class="card"><i class="fas fa-house-chimney" style="color: #43a047;"></i><span>طريقة التربية</span></a>
+    <a href="scale.html" class="card"><i class="fas fa-balance-scale" style="color: #607d8b;"></i><span>ميزان الدورة</span></a>
+    <a href="ask.html" class="card"><i class="fas fa-comment-dots" style="color: #00acc1;"></i><span>اسأل المصلحة</span></a>
+    <a href="social.html" class="card"><i class="fas fa-share-nodes" style="color: #8e24aa;"></i><span>السوشيال ميديا</span></a>
+    <a href="market.html" class="card"><i class="fas fa-chart-line" style="color: #43a047;"></i><span>بورصة اليوم</span></a>
+    <a href="videos.html" class="card"><i class="fas fa-play-circle" style="color: #e53935;"></i><span>فيديو تعليمي</span></a>
+    
+    <a href="profit.html" class="card">
+        <i class="fas fa-money-bill-wave" style="color: #fbc02d;"></i>
+        <span>حساب الأرباح 💰</span>
+    </a>
+
+    <a href="breeds.html" class="card"><i class="fas fa-dove" style="color: #03a9f4;"></i><span>سلالات الكتاكيت</span></a>
+    <a href="about.html" class="card"><i class="fas fa-info-circle" style="color: #0288d1;"></i><span>عن المصلحة</span></a>
+    <a href="nearby.html" class="card"><i class="fas fa-location-dot" style="color: #e53935;"></i><span>خدمات قريبة</span></a>
+    <a href="rate.html" class="card"><i class="fab fa-google-play" style="color: #1e88e5;"></i><span>تقييم المتجر</span></a>
+
+    <a href="expenses.html" class="card full-width expenses-card">
+        <i class="fas fa-wallet"></i>
+        <span>قسم المصاريف (كل ما تحتاجه) 💸</span>
+    </a>
+
+    <a href="future_apps.html" class="card full-width apps-card">
+        <i class="fas fa-layer-group"></i>
+        <span>برامج المصلحة القادمة 🛠️</span>
+    </a>
+
+    <div class="card full-width share-card" onclick="shareApp()">
+        <i class="fas fa-share-alt"></i>
+        <span>مشاركة التطبيق مع أحبابك 🤝</span>
+    </div>
+
+</div>
+
+<script>
+    function shareApp() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'تطبيق المصلحة الذكية',
+                text: 'إدارة مزرعتك وحساباتك بقت أسهل مع المصلحة. جربه دلوقتي!',
+                url: window.location.href 
+            });
+        } else {
+            alert('تم نسخ الرابط! شاركه الآن.');
+        }
+    }
+</script>
+
+</body>
+</html>

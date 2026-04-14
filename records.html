@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل الدورات - المصلحة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; text-align: center; }
+        .card { background: white; max-width: 450px; margin: auto; border-radius: 25px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        h2 { color: #333; margin-bottom: 20px; font-weight: 800; }
+        .input-group { margin-bottom: 15px; text-align: right; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; font-size: 14px; }
+        label i { color: #ff9800; margin-left: 5px; }
+        input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; outline: none; transition: 0.3s; font-size: 16px; text-align: center; }
+        input:focus { border-color: #ff9800; background-color: #fffde7; }
+        .cost-box { background: linear-gradient(135deg, #fff8e1, #ffecb3); border: 2px dashed #ff9800; border-radius: 15px; padding: 20px; margin: 25px 0; font-size: 20px; color: #e65100; font-weight: bold; }
+        .btn-save { background: linear-gradient(45deg, #ff9800, #f57c00); color: white; border: none; padding: 16px; border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 18px; width: 100%; box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+        .btn-save:active { transform: scale(0.97); }
+        .back-btn { display: inline-block; margin-top: 20px; color: #888; text-decoration: none; font-size: 14px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2><i class="fas fa-file-invoice"></i> تسجيل دورة جديدة</h2>
+        
+        <div class="input-group">
+            <label><i class="fas fa-kiwi-bird"></i> عدد الكتاكيت</label>
+            <input type="number" id="birdCount" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fas fa-money-bill-wave"></i> سعر الكتكوت الواحد (جنيه)</label>
+            <input type="number" id="birdPrice" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fas fa-seedling"></i> إجمالي تكلفة العلف (جنيه)</label>
+            <input type="number" id="feedCost" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 25px 0;">
+        <h3 style="color: #666; font-size: 16px; margin-bottom: 20px;">المصاريف والخدمات</h3>
+
+        <div class="input-group">
+            <label><i class="fas fa-bolt"></i> كهرباء ومياه وغاز</label>
+            <input type="number" id="utilities" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fas fa-pills"></i> أدوية وتحصينات</label>
+            <input type="number" id="meds" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <div class="input-group">
+            <label><i class="fas fa-box-open"></i> نثريات (نشارة، نقل، عمالة)</label>
+            <input type="number" id="others" placeholder="0" oninput="calculateTotal()">
+        </div>
+
+        <div class="cost-box">
+            <span>إجمالي التكلفة: </span>
+            <span id="totalDisplay">0</span> جنيه
+        </div>
+        
+        <button class="btn-save" onclick="saveData()"><i class="fas fa-save"></i> حفظ الدورة في السجل</button>
+        
+        <a href="menu.html" class="back-btn">🔙 العودة للقائمة الرئيسية</a>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            const count = parseFloat(document.getElementById('birdCount').value) || 0;
+            const price = parseFloat(document.getElementById('birdPrice').value) || 0;
+            const feed = parseFloat(document.getElementById('feedCost').value) || 0;
+            const util = parseFloat(document.getElementById('utilities').value) || 0;
+            const meds = parseFloat(document.getElementById('meds').value) || 0;
+            const other = parseFloat(document.getElementById('others').value) || 0;
+
+            const total = (count * price) + feed + util + meds + other;
+            document.getElementById('totalDisplay').innerText = total.toLocaleString('ar-EG');
+            return total;
+        }
+
+        function saveData() {
+            const total = calculateTotal();
+            if(total <= 0) {
+                alert("يا مصلحة، مينفعش تحفظ دورة من غير بيانات!");
+                return;
+            }
+            
+            // حفظ البيانات في ذاكرة الموبايل
+            const cycleData = {
+                count: document.getElementById('birdCount').value,
+                totalCost: total,
+                date: new Date().toLocaleDateString('ar-EG')
+            };
+            
+            localStorage.setItem('last_cycle_data', JSON.stringify(cycleData));
+            
+            alert("تم بنجاح! تم حفظ تكلفة الدورة (" + total.toLocaleString() + " جنيه) في سجلات المصلحة.");
+        }
+    </script>
+
+</body>
+</html>
