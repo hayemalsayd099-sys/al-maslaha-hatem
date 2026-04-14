@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:title" content="برنامج المصلحة - الإدارة الذكية">
+    <meta property="og:description" content="أقوى أداة لمتابعة دورات التسمين مع حاتم العالمي.">
+    <meta property="og:image" content="hatem.jpg">
+
+    <title>بوابة المصلحة</title>
+    <style>
+        body { margin: 0; padding: 0; background-color: #072213; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; }
+        .profile-container { width: 180px; height: 180px; border-radius: 50%; border: 4px solid #d4af37; overflow: hidden; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); margin-bottom: 20px; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 40px; margin: 10px 0; }
+        .welcome-text { color: #d4af37; font-size: 18px; margin-bottom: 20px; }
+        .description { font-size: 15px; line-height: 1.6; color: #e0e0e0; margin-bottom: 30px; padding: 0 25px; }
+        .start-btn { background-color: #d4af37; color: #072213; padding: 15px 60px; border-radius: 50px; text-decoration: none; font-size: 20px; font-weight: bold; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 999; position: relative; }
+        
+        .footer-credit { margin-top: 40px; color: #d4af37; font-size: 14px; }
+
+        /* كود القناص لإخفاء العلامة المائية البنفسجية */
+        #tiiny-host-badge, .tiiny-host-badge, a[href*="tiiny.host"], div[style*="fixed"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            pointer-events: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container"><img src="hatem.jpg" class="profile-img"></div>
+    <h1>المصلحة</h1>
+    <div class="welcome-text">تطبيق المربي الذكي</div>
+    <div class="description">اللي يهمني مصلحتك واللي يهمك انك تعمل المصلحه ودورتك تتم بخير وسلامه بأقل الإمكانيات وأقل التكاليف وأقل الخبرة 🔥</div>
+    
+    <a href="menu.html" class="start-btn">دخول البرنامج</a>
+
+    <div class="footer-credit">تطوير وبرمجة: حاتم العالمي © 2026</div>
+
+    <script>
+        window.onload = function() {
+            var badge = document.getElementById('tiiny-host-badge');
+            if(badge) badge.remove();
+            
+            // حذف أي ديف ثابت بيظهر تحت
+            var divs = document.getElementsByTagName('div');
+            for(var i=0; i<divs.length; i++) {
+                if(divs[i].style.position === 'fixed') {
+                    divs[i].remove();
+                }
+            }
+        };
+    </script>
+</body>
+</html>
