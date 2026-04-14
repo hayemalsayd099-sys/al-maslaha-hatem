@@ -1,25 +1,17 @@
 {
-  "short_name": "المصلحة",
-  "name": "المصلحة لإدارة الدواجن - حاتم العالمي",
-  "description": "عناصر الدواجن والحسابات المالية",
-  "icons": [
-    {
-      "src": "logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "logo_large.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-    "start_url": "/index.html",
-  "display": "standalone",
-  "theme_color": "#0000FF",
-  "background_color": "#0000FF",
-  "dir": "rtl",
-  "lang": "ar"
+"short_name": "AlMaslaha",
+"name": "Al-Maslaha Poultry Management",
+"icons": [
+{
+"src": "logo.png",
+"sizes": "192x192",
+"type": "image/png"
 }
-
-
-
+],
+"start_url": "/index.html",
+"display": "standalone",
+"theme_color": "#0000FF",
+"background_color": "#0000FF",
+"dir": "rtl",
+"lang": "ar"
+}
